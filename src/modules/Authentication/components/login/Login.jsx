@@ -24,7 +24,7 @@ const Login = () => {
                 "https://upskilling-egypt.com:3006/api/v1/Users/Login",
                 data
             );
-
+            localStorage.setItem("token", response.data.token);
             toast.success("logedin Successfully");
             navigate("/dashboard");
         } catch (error) {

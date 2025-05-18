@@ -19,16 +19,54 @@ import RecipesList from "./modules/Recipes/components/recipes-list/RecipesList";
 import FavList from "./modules/Favorites/components/fav-list/FavList";
 import CategoryData from "./modules/Categories/components/category-data/CategoryData";
 import { ToastContainer } from "react-toastify";
+import { useState, useEffect, useCallback } from "react";
+import { jwtDecode } from "jwt-decode";
+import ProtectedRoute from "./modules/Shared/components/protected-route/ProtectedRoute";
 
 function App() {
+    const [loginData, setLoginData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const saveLoginData = useCallback(() => {
+        try {
+            const userToken = localStorage.getItem("token");
+            if (!userToken) {
+                setLoginData(null);
+                return;
+            }
+            const decodedData = jwtDecode(userToken);
+            setLoginData(decodedData);
+        } catch (error) {
+            console.error("Failed to decode token:", error);
+            localStorage.removeItem("token");
+            setLoginData(null);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        saveLoginData();
+    }, [saveLoginData]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     let routes = createBrowserRouter([
         {
             path: "",
             element: <AuthLayout />,
             errorElement: <NotFound />,
             children: [
-                { index: true, element: <Login /> },
-                { path: "login", element: <Login /> },
+                {
+                    index: true,
+                    element: <Login saveLoginData={saveLoginData} />,
+                },
+                {
+                    path: "login",
+                    element: <Login saveLoginData={saveLoginData} />,
+                },
                 { path: "register", element: <Register /> },
                 { path: "forget-pass", element: <ForgetPass /> },
                 { path: "reset-pass", element: <ResetPass /> },
@@ -37,7 +75,11 @@ function App() {
         },
         {
             path: "dashboard",
-            element: <MasterLayout />,
+            element: (
+                <ProtectedRoute loginData={console.log(loginData) && loginData}>
+                    <MasterLayout loginData={loginData} />
+                </ProtectedRoute>
+            ),
             errorElement: <NotFound />,
             children: [
                 { index: true, element: <Dashboard /> },

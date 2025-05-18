@@ -3,7 +3,8 @@ import Navbar from "../navbar/Navbar";
 import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 
-const MasterLayout = () => {
+const MasterLayout = ({ loginData }) => {
+    console.log("loginData", loginData);
     return (
         <>
             <div className="d-flex">
@@ -11,7 +12,7 @@ const MasterLayout = () => {
                     <Sidebar />
                 </div>
                 <div className="w-100 bg-warning">
-                    <Navbar />
+                    <Navbar loginData={loginData} />
                     <Header />
                     <Outlet />
                 </div>
