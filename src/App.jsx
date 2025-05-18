@@ -77,7 +77,10 @@ function App() {
             path: "dashboard",
             element: (
                 <ProtectedRoute loginData={console.log(loginData) && loginData}>
-                    <MasterLayout loginData={loginData} />
+                    <MasterLayout
+                        loginData={loginData}
+                        setLoginData={setLoginData}
+                    />
                 </ProtectedRoute>
             ),
             errorElement: <NotFound />,
