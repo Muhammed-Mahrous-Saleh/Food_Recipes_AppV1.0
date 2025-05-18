@@ -1,68 +1,177 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../src/assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../src/assets/fonts/Inter/Inter-VariableFont_opsz\,wght.ttf");
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    --text-secondary-color: #49494999;
+    --input-background-color: #f7f7f7;
+    --icon-color: #8391a1;
+    --input-text-color: #4b5158;
+    --primary-color: #4aa35a;
+    --primary-color-dark: #3a7e46;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+    --accent-color: #3a3a3d;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    font-family: "Inter";
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.auth-container {
+    background-image: url("../src/assets/images/auth-bg.png");
+    background-size: cover;
+    background-position: center center;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.auth-container .auth-card {
+    padding: 3.5rem 4rem;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.auth-title > * {
+    padding: 0;
+    margin: 0;
+}
+.auth-title h4 {
+    font-family: "Inter";
+    color: #494949;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 100%;
+}
+
+.auth-title span {
+    font-family: "Inter";
+    color: #49494999;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 100%;
+}
+
+.bg-overlay {
+    background: linear-gradient(
+        45deg,
+        rgba(55, 140, 47, 0.6) 0 5%,
+        rgba(0, 0, 0, 0.6) 30% 100%
+    );
+}
+
+.icon,
+.input-group-text.icon {
+    color: var(--icon-color);
+}
+
+.text-secondary {
+    color: var(--text-secondary-color);
+}
+
+.bg-input {
+    background-color: var(--input-background-color);
+}
+
+.input-group.bg-input {
+    padding: 0.5rem 0.2rem;
+    border-radius: 0.375rem;
+}
+
+.input-group.bg-input > * {
+    background-color: inherit;
+    border: none;
+    font-size: 1rem;
+}
+
+.input-group.bg-input > .input-group-text {
+    font-size: 1.2rem;
+}
+
+.input-group.bg-input input,
+.input-group.bg-input input:active,
+.input-group.bg-input input:focus {
+    color: var(--input-text-color);
+    font-weight: 400;
+    line-height: 100%;
+    vertical-align: bottom;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+    background-color: inherit;
+}
+
+.input-group.bg-input input::placeholder {
+    color: var(--icon-color);
+}
+
+.input-group.bg-input span:first-child {
+    position: relative;
+}
+.input-group.bg-input span:first-child::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1px;
+    width: 0.5px;
+    height: 90%;
+    background-color: var(--icon-color);
+    z-index: 100;
+}
+
+.input-group-container:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+/* .input-group.bg-input:last-child { */
+.input-group-container:last-child {
+    margin-bottom: 0.5rem;
+}
+
+button.auth-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 100%;
+    border: none;
+    padding-block: 0.8rem;
+}
+
+button.auth-btn:hover,
+button.auth-btn.btn:active,
+button.auth-btn:disabled {
+    background-color: var(--primary-color-dark);
+    color: #fff;
+}
+
+button.auth-btn:disabled {
+    cursor: not-allowed;
+}
+
+.form-links {
+    padding-bottom: 2rem;
+}
+.form-links a {
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.form-links a:hover {
+    color: var(--primary-color);
+}
+
+.form-links a:last-child {
+    color: var(--primary-color);
+}
+
+.form-links a:last-child:hover {
+    color: var(--primary-color-dark);
 }
