@@ -15,8 +15,14 @@
     --input-text-color: #4b5158;
     --primary-color: #4aa35a;
     --primary-color-dark: #3a7e46;
-
+    --sidebar-text-color: #fafafa;
     --accent-color: #3a3a3d;
+    --sidebar-background-color: #1f263e;
+    --sidebar-indecator-color: rgb(0, 146, 71);
+    --sidebar-ind-bg-color-red: 0;
+    --sidebar-ind-bg-color-green: 146;
+    --sidebar-ind-bg-color-blue: 77;
+    --sidebar-ind-bg-color-opacity: 10%;
 }
 
 body {
@@ -174,4 +180,49 @@ button.auth-btn:disabled {
 
 .form-links a:last-child:hover {
     color: var(--primary-color-dark);
+}
+
+.sidebar {
+    /* border: 2px solid red; */
+    background-color: var(--sidebar-background-color);
+    border-radius: 0 60px 0 0;
+}
+
+.sidebar-icon {
+    color: var(--sidebar-text-color);
+}
+
+.sidebar-img-container {
+    height: 20vh;
+    margin-inline: auto;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.pro-menu-item {
+    font-size: 16px;
+}
+
+.pro-sidebar .pro-menu-item a:hover,
+.pro-sidebar .pro-menu-item a.ps-active {
+    background-color: rgba(
+        var(--sidebar-ind-bg-color-red),
+        var(--sidebar-ind-bg-color-green),
+        var(--sidebar-ind-bg-color-blue),
+        var(--sidebar-ind-bg-color-opacity)
+    );
+}
+.pro-sidebar .pro-menu-item a:hover::before,
+.pro-sidebar .pro-menu-item a.ps-active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--sidebar-indecator-color);
 }
