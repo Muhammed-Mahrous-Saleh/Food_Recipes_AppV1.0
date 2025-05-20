@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import { useState, useEffect, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import ProtectedRoute from "./modules/Shared/components/protected-route/ProtectedRoute";
+import { BallTriangle } from "react-loader-spinner";
 
 function App() {
     const [loginData, setLoginData] = useState(null);
@@ -50,7 +51,20 @@ function App() {
     }, [saveLoginData]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="w-100 vh-100 d-flex justify-content-center align-items-center">
+                <BallTriangle
+                    height={100}
+                    width={100}
+                    radius={5}
+                    color="#4fa94d"
+                    ariaLabel="ball-triangle-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            </div>
+        );
     }
 
     let routes = createBrowserRouter([
