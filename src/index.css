@@ -7,6 +7,10 @@
     font-family: "Inter";
     src: url("../src/assets/fonts/Inter/Inter-VariableFont_opsz\,wght.ttf");
 }
+@font-face {
+    font-family: "Roboto";
+    src: url("../src/assets/fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+}
 
 :root {
     --text-secondary-color: #49494999;
@@ -15,7 +19,8 @@
     --input-text-color: #4b5158;
     --primary-color: #4aa35a;
     --primary-color-dark: #3a7e46;
-    --secondary-color: #1f384c;
+    --primary-color-light: #009247;
+    --secondary-color: #1f263e;
     --sidebar-text-color: #fafafa;
     --accent-color: #3a3a3d;
     --sidebar-background-color: #1f263e;
@@ -25,6 +30,8 @@
     --sidebar-ind-bg-color-blue: 77;
     --sidebar-ind-bg-color-opacity: 10%;
     --profile-bg: #f4ce9b;
+    --text-white-color: #fff;
+    --subcard-bg: #f0ffef;
 }
 
 body {
@@ -206,6 +213,7 @@ button.auth-btn:disabled {
 
 .sidebar aside {
     border-radius: 0 60px 0 0;
+    border: none;
 }
 
 .pro-menu-item {
@@ -275,4 +283,90 @@ nav .alert-container::after {
     border: 2px solid rgba(var(--bs-light-rgb));
     background-color: red;
     border-radius: 50%;
+}
+
+.header-container {
+    background-color: var(--primary-color-light);
+    background-image: url("../src/assets/images/header_bg2.png");
+    background-position: center;
+    background-size: 105%;
+    color: var(--text-white-color);
+    overflow: hidden;
+}
+
+.header-container .header-img-container {
+    align-self: flex-end;
+}
+
+.header-container h3 {
+    font-family: "Roboto";
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 100%;
+}
+
+.header-container h3 span {
+    font-family: Roboto;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 100%;
+}
+
+.header-container p {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 4%;
+}
+
+.dashboard-content .fill-recipes-card {
+    background-color: var(--subcard-bg);
+    color: var(--secondary-color);
+}
+
+.fill-recipes-card .card-text h3 {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+}
+
+.fill-recipes-card .card-text h3 span {
+    color: var(--primary-color-light);
+}
+
+.fill-recipes-card .card-text p {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 4%;
+}
+
+.fill-recipes-card .card-action-btn {
+    background-color: var(--primary-color-light);
+    color: var(--text-white-color);
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.fill-recipes-card .card-action-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--text-white-color);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        gap: 1rem;
+    }
+    50% {
+        gap: 0.5rem;
+    }
+    100% {
+        gap: 1rem;
+    }
 }
