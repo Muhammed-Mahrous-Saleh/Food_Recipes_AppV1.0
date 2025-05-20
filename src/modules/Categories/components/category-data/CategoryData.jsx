@@ -1,7 +1,7 @@
 import React from "react";
 
 const CategoryData = () => {
-    return <div>CategoryData</div>;
+    return <div>Category Data</div>;
 };
 
 export default CategoryData;
