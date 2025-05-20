@@ -15,6 +15,7 @@
     --input-text-color: #4b5158;
     --primary-color: #4aa35a;
     --primary-color-dark: #3a7e46;
+    --secondary-color: #1f384c;
     --sidebar-text-color: #fafafa;
     --accent-color: #3a3a3d;
     --sidebar-background-color: #1f263e;
@@ -183,7 +184,6 @@ button.auth-btn:disabled {
 }
 
 .sidebar {
-    /* border: 2px solid red; */
     background-color: var(--sidebar-background-color);
     border-radius: 0 60px 0 0;
 }
@@ -201,6 +201,10 @@ button.auth-btn:disabled {
     align-items: center;
     margin-top: 3rem;
     margin-bottom: 3rem;
+}
+
+.sidebar aside {
+    border-radius: 0 60px 0 0;
 }
 
 .pro-menu-item {
@@ -225,4 +229,49 @@ button.auth-btn:disabled {
     width: 4px;
     height: 100%;
     background-color: var(--sidebar-indecator-color);
+}
+
+nav .user-img-container {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-inline: 0.5rem;
+    background-color: red;
+}
+
+nav .user-img-container img {
+    width: 100%;
+}
+
+nav .user-name-container {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 13px;
+    letter-spacing: 0.5px;
+    color: var(--secondary-color);
+    height: fit-content;
+}
+
+nav .dropdown a {
+    color: var(--secondary-color);
+}
+
+nav .alert-container {
+    font-size: 20px;
+    color: var(--secondary-color);
+    height: fit-content;
+    position: relative;
+}
+
+nav .alert-container::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba(var(--bs-light-rgb));
+    background-color: red;
+    border-radius: 50%;
 }
