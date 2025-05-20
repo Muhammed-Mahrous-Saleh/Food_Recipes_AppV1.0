@@ -9,6 +9,7 @@ import Recipes from "../../../../assets/icons/recipes.svg?react";
 import Categories from "../../../../assets/icons/categories.svg?react";
 import Unlock from "../../../../assets/icons/unlock.svg?react";
 import Logout from "../../../../assets/icons/logout.svg?react";
+import logo from "@/assets/images/logo.png";
 import { useState } from "react";
 
 const Sidebar = ({ setLoginData }) => {
@@ -33,11 +34,7 @@ const Sidebar = ({ setLoginData }) => {
         >
             <div onClick={toggleSidebar}>
                 <div className="sidebar-img-container">
-                    <img
-                        src="./assets/images/logo.png"
-                        alt="Logo"
-                        className="w-100"
-                    />
+                    <img src={logo} alt="Logo" className="w-100" />
                 </div>
             </div>
             <Menu>
