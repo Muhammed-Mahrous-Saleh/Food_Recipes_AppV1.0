@@ -39,28 +39,28 @@ const Sidebar = ({ setLoginData }) => {
             <Menu>
                 <MenuItem
                     icon={<Home className="sidebar-icon" />}
-                    component={<NavLink to="/dashboard/" end />}
+                    component={<NavLink to="/dashboard" end />}
                     className="pro-menu-item"
                 >
                     Home
                 </MenuItem>
                 <MenuItem
                     icon={<Users className="sidebar-icon" />}
-                    component={<NavLink to="users" end />}
+                    component={<NavLink to="users" />}
                     className="pro-menu-item"
                 >
                     Users
                 </MenuItem>
                 <MenuItem
                     icon={<Recipes className="sidebar-icon" />}
-                    component={<NavLink to="recipes" end />}
+                    component={<NavLink to="recipes" />}
                     className="pro-menu-item"
                 >
                     Recipes
                 </MenuItem>
                 <MenuItem
                     icon={<Categories className="sidebar-icon" />}
-                    component={<NavLink to="categories" end />}
+                    component={<NavLink to="categories" />}
                     className="pro-menu-item"
                 >
                     Categories
