@@ -5,11 +5,11 @@
 
 @font-face {
     font-family: "Inter";
-    src: url("../src/assets/fonts/Inter/Inter-VariableFont_opsz\,wght.ttf");
+    src: url("../src/assets/fonts/Inter/Inter-VariableFont_opsz_wght.ttf");
 }
 @font-face {
     font-family: "Roboto";
-    src: url("../src/assets/fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf");
+    src: url("../src/assets/fonts/Roboto/Roboto-VariableFont_wdth_wght.ttf");
 }
 
 :root {
@@ -306,14 +306,13 @@ nav .alert-container::after {
 }
 
 .header-container h3 span {
-    font-family: Roboto;
     font-weight: 300;
     font-size: 32px;
     line-height: 100%;
 }
 
 .header-container p {
-    font-family: Roboto;
+    font-family: "Roboto";
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -326,7 +325,7 @@ nav .alert-container::after {
 }
 
 .fill-recipes-card .card-text h3 {
-    font-family: Roboto;
+    font-family: "Roboto";
     font-weight: 500;
     font-size: 24px;
     line-height: 100%;
@@ -337,7 +336,7 @@ nav .alert-container::after {
 }
 
 .fill-recipes-card .card-text p {
-    font-family: Roboto;
+    font-family: "Roboto";
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
