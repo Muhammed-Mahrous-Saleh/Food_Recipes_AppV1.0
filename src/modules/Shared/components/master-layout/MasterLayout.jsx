@@ -4,7 +4,6 @@ import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 
 const MasterLayout = ({ loginData, setLoginData }) => {
-    console.log("loginData", loginData);
     return (
         <>
             <div className="d-flex">

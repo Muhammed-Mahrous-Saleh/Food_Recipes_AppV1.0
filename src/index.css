@@ -220,8 +220,13 @@ button.auth-btn:disabled {
     font-size: 16px;
 }
 
+.pro-sidebar .pro-menu-item a {
+    transition: all 0.3s ease;
+}
+
 .pro-sidebar .pro-menu-item a:hover,
-.pro-sidebar .pro-menu-item a.ps-active {
+.pro-sidebar .pro-menu-item a.ps-active,
+.pro-sidebar .pro-menu-item a.active {
     background-color: rgba(
         var(--sidebar-ind-bg-color-red),
         var(--sidebar-ind-bg-color-green),
@@ -229,14 +234,20 @@ button.auth-btn:disabled {
         var(--sidebar-ind-bg-color-opacity)
     );
 }
-.pro-sidebar .pro-menu-item a:hover::before,
-.pro-sidebar .pro-menu-item a.ps-active::before {
+
+.pro-sidebar .pro-menu-item a::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 4px;
     height: 100%;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.pro-sidebar .pro-menu-item a:hover::before,
+.pro-sidebar .pro-menu-item a.ps-active::before,
+.pro-sidebar .pro-menu-item a.active::before {
     background-color: var(--sidebar-indecator-color);
 }
 

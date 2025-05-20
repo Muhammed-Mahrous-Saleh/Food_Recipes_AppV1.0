@@ -26,7 +26,7 @@ const Dashboard = () => {
                         </p>
                     </div>
                     <Link to="recipes" className="card-action-btn btn col-2">
-                        Fill Recipes<i class="fa-solid fa-arrow-right"></i>
+                        Fill Recipes<i className="fa-solid fa-arrow-right"></i>
                     </Link>
                 </div>
             </div>

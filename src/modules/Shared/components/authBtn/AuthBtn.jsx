@@ -5,10 +5,10 @@ const AuthBtn = ({ title, isLoading }) => {
         <button className="auth-btn btn w-100" disabled={isLoading}>
             {(isLoading && (
                 <div
-                    class="spinner-grow spinner-grow-sm text-light"
+                    className="spinner-grow spinner-grow-sm text-light"
                     role="status"
                 >
-                    <span class="visually-hidden">Loading...</span>
+                    <span className="visually-hidden">Loading...</span>
                 </div>
             )) ||
                 title}

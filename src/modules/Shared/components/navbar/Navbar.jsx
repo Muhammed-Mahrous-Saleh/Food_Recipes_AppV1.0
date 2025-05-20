@@ -15,35 +15,35 @@ const Navbar = ({ loginData }) => {
                             {loginData?.userName}
                         </div>
                     </div>
-                    <div class="dropdown mx-4">
+                    <div className="dropdown mx-4">
                         <a
                             href="#"
                             role="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                         >
-                            <i class="fa-solid fa-chevron-down"></i>
+                            <i className="fa-solid fa-chevron-down"></i>
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul className="dropdown-menu dropdown-menu-end">
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Action
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Another action
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Something else here
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="dropdown mx-4">
+                    <div className="dropdown mx-4">
                         <a
                             className="alert-container"
                             href="#"
@@ -54,19 +54,19 @@ const Navbar = ({ loginData }) => {
                             <Alert />
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul className="dropdown-menu dropdown-menu-end">
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Alert
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Another Alert
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a className="dropdown-item" href="#">
                                     Alert
                                 </a>
                             </li>
