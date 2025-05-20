@@ -1,21 +1,31 @@
 import React from "react";
+import ghimg from "@/assets/images/general-header-img.png";
 
 const Header = ({ title, description, subTitle, imgsrc }) => {
     return (
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-8">
-                    <h3>
-                        {title} <span>{subTitle}</span>{" "}
-                    </h3>
-                    <p>{description}</p>
-                </div>
-                <div className="col-md-4">
-                    elsora
-                    {/* <img src={imgsrc} className="w-100" alt="" /> */}
+        <header className="container-fluid">
+            <div className="p-3">
+                <div className="row rounded-4 header-container align-items-center justify-content-between">
+                    <div className="col-md-6 p-5">
+                        <h3>
+                            {title} <span>{subTitle}</span>{" "}
+                        </h3>
+                        <p>{description}</p>
+                    </div>
+                    <div
+                        className={`header-img-container col-md-4 ${
+                            imgsrc ? "mt-3 me-3" : ""
+                        }`}
+                    >
+                        <img
+                            src={imgsrc ? imgsrc : ghimg}
+                            className="w-100"
+                            alt="menu item image"
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
     );
 };
 
