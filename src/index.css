@@ -24,6 +24,7 @@
     --sidebar-ind-bg-color-green: 146;
     --sidebar-ind-bg-color-blue: 77;
     --sidebar-ind-bg-color-opacity: 10%;
+    --profile-bg: #f4ce9b;
 }
 
 body {
@@ -237,7 +238,7 @@ nav .user-img-container {
     border-radius: 50%;
     overflow: hidden;
     margin-inline: 0.5rem;
-    background-color: red;
+    background-color: var(--profile-bg);
 }
 
 nav .user-img-container img {
