@@ -34,7 +34,7 @@ const Sidebar = ({ setLoginData }) => {
             <div onClick={toggleSidebar}>
                 <div className="sidebar-img-container">
                     <img
-                        src="src/assets/images/logo.png"
+                        src="./assets/images/logo.png"
                         alt="Logo"
                         className="w-100"
                     />
