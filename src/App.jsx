@@ -28,16 +28,17 @@ function App() {
     const [loginData, setLoginData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
+    const decodeToken = useCallback(() => {
+        const userToken = localStorage.getItem("token");
+        if (!userToken) return null;
+        const decodedData = jwtDecode(userToken);
+        return decodedData;
+    }, []);
+
     const saveLoginData = useCallback(() => {
         try {
-            const userToken = localStorage.getItem("token");
-            if (!userToken) {
-                setLoginData(null);
-                return;
-            }
-            const decodedData = jwtDecode(userToken);
+            const decodedData = decodeToken();
             setLoginData(decodedData);
-            return decodedData;
         } catch (error) {
             console.error("Failed to decode token:", error);
             localStorage.removeItem("token");
@@ -45,7 +46,7 @@ function App() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    }, [decodeToken]);
 
     useEffect(() => {
         saveLoginData();
@@ -82,7 +83,7 @@ function App() {
                     <MasterLayout
                         loginData={loginData}
                         setLoginData={setLoginData}
-                        saveLoginData={saveLoginData}
+                        decodeToken={decodeToken}
                     />
                 </ProtectedRoute>
             ),
