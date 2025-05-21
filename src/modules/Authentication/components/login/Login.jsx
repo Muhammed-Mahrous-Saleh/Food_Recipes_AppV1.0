@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Login = ({ saveLoginData }) => {
+const Login = () => {
     let {
         register,
         formState: { errors },
@@ -25,7 +25,6 @@ const Login = ({ saveLoginData }) => {
                 data
             );
             localStorage.setItem("token", response.data.token);
-            saveLoginData();
             toast.success("logedin Successfully");
             navigate("/dashboard");
         } catch (error) {
