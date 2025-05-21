@@ -3,7 +3,8 @@ import Navbar from "../navbar/Navbar";
 import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 
-const MasterLayout = ({ loginData, setLoginData }) => {
+const MasterLayout = ({ loginData, setLoginData, saveLoginData }) => {
+    if (!loginData) loginData = saveLoginData();
     return (
         <>
             <div className="d-flex">

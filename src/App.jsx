@@ -37,6 +37,7 @@ function App() {
             }
             const decodedData = jwtDecode(userToken);
             setLoginData(decodedData);
+            return decodedData;
         } catch (error) {
             console.error("Failed to decode token:", error);
             localStorage.removeItem("token");
@@ -81,6 +82,7 @@ function App() {
                     <MasterLayout
                         loginData={loginData}
                         setLoginData={setLoginData}
+                        saveLoginData={saveLoginData}
                     />
                 </ProtectedRoute>
             ),
