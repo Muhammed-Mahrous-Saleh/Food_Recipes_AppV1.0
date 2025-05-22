@@ -317,41 +317,6 @@ const CategoriesList = () => {
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <button
-                                                    className="btn btn-primary d-flex align-items-center gap-2"
-                                                    onClick={() => {
-                                                        setAction("View");
-                                                        handleShowActionModal(
-                                                            category
-                                                        );
-                                                    }}
-                                                >
-                                                    <ViewIcon className="action-icon" />
-                                                    View
-                                                </button>
-                                                <button
-                                                    className="btn btn-warning d-flex align-items-center gap-2"
-                                                    onClick={() => {
-                                                        setAction("Edit");
-                                                        handleShowActionModal(
-                                                            category
-                                                        );
-                                                    }}
-                                                >
-                                                    <EditIcon className="action-icon" />
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    className="btn btn-danger d-flex align-items-center gap-2"
-                                                    onClick={() => {
-                                                        handleShowConfirmModal(
-                                                            category
-                                                        );
-                                                    }}
-                                                >
-                                                    <DeleteIcon className="action-icon" />
-                                                    Delete
-                                                </button>
                                             </td>
                                         </tr>
                                     );
