@@ -11,6 +11,10 @@
     font-family: "Roboto";
     src: url("../src/assets/fonts/Roboto/Roboto-VariableFont_wdth_wgth.ttf");
 }
+@font-face {
+    font-family: "Poppins";
+    src: url("../src/assets/fonts/Poppins/Poppins-Regular.ttf");
+}
 
 :root {
     --text-secondary-color: #494949;
@@ -34,6 +38,7 @@
     --profile-bg: #f4ce9b;
     --text-white-color: #fff;
     --subcard-bg: #f0ffef;
+    --action-bg: #f8f9fb;
 }
 
 body {
@@ -508,6 +513,44 @@ nav .alert-container::after {
 
 .action-modal button {
     padding: 5px 30px;
+}
+ul.actions-menu {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 0 10px 0 rgb(200, 200, 200);
+}
+.actions-menu .action-icon {
+    color: var(--primary-color-light);
+}
+
+.actions-menu .action {
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    cursor: pointer;
+    padding: 10px 20px;
+    width: 95%;
+    margin-inline: auto;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+.actions-container {
+    position: relative;
+    background-color: red;
+}
+.actions-menu::after {
+    content: "";
+    border: 10px solid;
+    border-color: transparent transparent #fff;
+    /* box-shadow: 0 0 10px 0 rgb(200, 200, 200); */
+    position: absolute;
+    top: -17px;
+    right: 10px;
+}
+
+.actions-menu .action:hover {
+    background-color: var(--action-bg);
 }
 
 @keyframes pulse {

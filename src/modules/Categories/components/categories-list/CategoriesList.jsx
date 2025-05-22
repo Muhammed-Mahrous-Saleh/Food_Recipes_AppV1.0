@@ -259,7 +259,64 @@ const CategoriesList = () => {
                                                     dateFormat
                                                 )}
                                             </td>
-                                            <td className="d-flex gap-2 ">
+                                            <td className="d-flex gap-2">
+                                                <a
+                                                    href="#"
+                                                    role="button"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                >
+                                                    <i className="fa-solid fa-chevron-down"></i>
+                                                </a>
+                                                <div className="actions-container">
+                                                    <ul className="dropdown-menu dropdown-menu-end actions-menu">
+                                                        <li className="action">
+                                                            <div
+                                                                className="d-flex align-items-center justify-content-start gap-2"
+                                                                onClick={() => {
+                                                                    setAction(
+                                                                        "View"
+                                                                    );
+                                                                    handleShowActionModal(
+                                                                        category
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <ViewIcon className="action-icon" />
+                                                                View
+                                                            </div>
+                                                        </li>
+                                                        <li className="action">
+                                                            <div
+                                                                className="d-flex align-items-center justify-content-start gap-2"
+                                                                onClick={() => {
+                                                                    setAction(
+                                                                        "Edit"
+                                                                    );
+                                                                    handleShowActionModal(
+                                                                        category
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <EditIcon className="action-icon" />
+                                                                Edit
+                                                            </div>
+                                                        </li>
+                                                        <li className="action">
+                                                            <div
+                                                                className="d-flex align-items-center justify-content-start gap-2"
+                                                                onClick={() => {
+                                                                    handleShowConfirmModal(
+                                                                        category
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <DeleteIcon className="action-icon" />
+                                                                Delete
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                                 <button
                                                     className="btn btn-primary d-flex align-items-center gap-2"
                                                     onClick={() => {
