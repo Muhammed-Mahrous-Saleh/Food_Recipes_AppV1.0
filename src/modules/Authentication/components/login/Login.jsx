@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const Login = ({saveLoginData}) => {
     let {
         register,
         formState: { errors },
@@ -25,6 +25,7 @@ const Login = () => {
                 data
             );
             localStorage.setItem("token", response.data.token);
+            await saveLoginData()
             toast.success("logedin Successfully");
             navigate("/dashboard");
         } catch (error) {
@@ -82,7 +83,7 @@ const Login = () => {
 
                 <div className="form-links d-flex justify-content-between">
                     <Link to={"/register"}>Register Now?</Link>
-                    <Link to={"/forget-pass"}>Forgot Password?</Link>
+                    <Link to={"/forget-password"}>Forgot Password?</Link>
                 </div>
                 <AuthBtn title={"Login"} isLoading={isLoading} />
             </form>

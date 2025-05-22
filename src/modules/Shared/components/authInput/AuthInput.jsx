@@ -12,6 +12,8 @@ const AuthInput = ({
     errors,
     registeredName,
     registeredRules,
+    value,
+    disabled,
 }) => {
     const [isHidden, setIsHidden] = useState(type === "password");
     return (
@@ -33,6 +35,8 @@ const AuthInput = ({
                     aria-label={placeholder}
                     aria-describedby={`basic-addon${id}`}
                     id={id}
+                    value={disabled && value}
+                    disabled={disabled || false}
                     {...register(registeredName, registeredRules)}
                 />
                 {type === "password" && (

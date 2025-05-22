@@ -28,7 +28,7 @@ const ForgetPass = () => {
             toast.success(
                 "Reset OTP sent Successfully, Please check your Email!"
             );
-            navigate("/reset-pass");
+            navigate("/reset-password", { state: { email: data.email } });
         } catch (error) {
             switch (error.response.status) {
                 case 404:

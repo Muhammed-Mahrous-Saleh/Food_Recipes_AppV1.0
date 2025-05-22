@@ -71,8 +71,8 @@ function App() {
                     element: <Login saveLoginData={saveLoginData} />,
                 },
                 { path: "register", element: <Register /> },
-                { path: "forget-pass", element: <ForgetPass /> },
-                { path: "reset-pass", element: <ResetPass /> },
+                { path: "forget-password", element: <ForgetPass /> },
+                { path: "reset-password", element: <ResetPass /> },
                 { path: "verify-account", element: <VerifyAccount /> },
             ],
         },
@@ -102,7 +102,7 @@ function App() {
     return (
         <>
             <RouterProvider router={routes}></RouterProvider>
-            <ToastContainer />
+            <ToastContainer stacked />
         </>
     );
 }

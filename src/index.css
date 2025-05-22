@@ -422,6 +422,94 @@ nav .alert-container::after {
     );
 }
 
+.custom-modal {
+    position: relative;
+    text-align: center;
+}
+
+.custom-modal .close-icon {
+    color: #cc0000;
+    border-radius: 50%;
+    font-size: 14px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border: 2px solid #cc0000;
+    top: 50px;
+    right: 50px;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.action-modal .header {
+    position: relative;
+    padding: 1rem;
+}
+
+.action-modal .header .close-icon {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    align-self: center;
+}
+
+.custom-modal .close-icon:hover,
+.custom-modal .close-icon:active,
+.custom-modal .close-icon:focus {
+    background-color: #cc0000;
+    color: var(--text-white-color);
+}
+
+.confirm-modal h4 {
+    font-family: "Inter";
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    color: var(--text-secondary-color);
+}
+
+.confirm-modal p {
+    font-family: "Inter";
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    color: rgba(
+        var(--text-secondary-color-unit),
+        var(--text-secondary-color-unit),
+        var(--text-secondary-color-unit),
+        var(--text-secondary-color-opacity)
+    );
+}
+.action-modal form {
+    width: 100%;
+}
+.action-modal .input-container {
+    width: 80%;
+    margin-inline: auto;
+}
+.action-modal input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.action-modal hr {
+    margin-block: 30px;
+}
+
+.action-modal button {
+    padding: 5px 30px;
+}
+
 @keyframes pulse {
     0% {
         gap: 1rem;

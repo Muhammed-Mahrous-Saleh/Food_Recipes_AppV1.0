@@ -11,12 +11,72 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?react";
 import { toast } from "react-toastify";
 import Loading from "@/modules/Shared/components/loading/Loading";
 import NoData from "@/modules/Shared/components/no-data/NoData";
+import ConfirmModal from "@/modules/Shared/components/confirmation-modal/ConfirmModal";
+import ActionModal from "@/modules/Shared/components/action-modal/ActionModal";
 
 const CategoriesList = () => {
     const [categoriesList, setCategoriesList] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showActionModal, setShowActionModal] = useState(false);
+    const [action, setAction] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState({
+        id: "",
+        name: "",
+    });
+    // const [modalTriger, setModalTriger] = useState(null);
+    // const [modalInfo, setModalInfo] = useState({});
+
     let dateFormat = "dd/MM/yyyy HH:mm a";
     let pageSize = 10;
+
+    let handleShowConfirmModal = (category) => {
+        // setModalTriger({ id, func });
+
+        // if (modalTriger.func === "delete")
+        //     setModalInfo({
+        // title: "Delete This Category ?",
+        // message:
+        //     "are you sure you want to delete this item ? if you are sure just click on delete it",
+        // confirmTitle: "Delete this item",
+        // onConfirm: () => {
+        //     deleteCategory(modalTriger.id);
+        // },
+        // handleClose: handleCloseModal,
+        // show: showModal,
+        //     });
+        if (category) setSelectedCategory(category);
+        setShowConfirmModal(true);
+    };
+
+    let handleCloseConfirmModal = () => {
+        setShowConfirmModal(false);
+        // setModalTriger(null);
+        // setModalInfo({});
+    };
+
+    let handleShowActionModal = (category) => {
+        if (category) setSelectedCategory(category);
+        setShowActionModal(true);
+    };
+
+    let handleCloseActionModal = () => {
+        setShowActionModal(false);
+    };
+
+    // const getModalData = () => {};
+
+    // let getConfirm = () => {
+    //     console.log("modalInfo", modalTriger);
+    //     switch (modalTriger.func) {
+    //         case "delete":
+    //             deleteCategory(modalTriger.id);
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     handleCloseModal();
+    // };
 
     const getAllCategories = async () => {
         try {
@@ -53,13 +113,13 @@ const CategoriesList = () => {
                     `https://upskilling-egypt.com:3006/api/v1/Category/${id}`,
                     {
                         headers: {
-                            // Authorization: localStorage.getItem("token"),
+                            Authorization: localStorage.getItem("token"),
                         },
                     }
                 ),
                 {
                     pending: "Deleting category...",
-                    success: `Category ${deletedCategory.name} deleted successfully`,
+                    success: `Category "${deletedCategory.name}" deleted successfully`,
                     error: {
                         render({ data }) {
                             return `Something went wrong: ${data.response.data.message}`;
@@ -67,10 +127,77 @@ const CategoriesList = () => {
                     },
                 }
             );
+            getAllCategories();
         } catch (error) {
             console.log(error);
             setCategoriesList([...categoriesList]);
         }
+    };
+
+    const addCategory = async (data) => {
+        try {
+            let response = await toast.promise(
+                axios.post(
+                    `https://upskilling-egypt.com:3006/api/v1/Category/`,
+                    data,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("token"),
+                        },
+                    }
+                ),
+                {
+                    pending: `Adding ${data.name} Category ..`,
+                    success: `${data.name} Category added Successfully`,
+                    error: {
+                        render({ data }) {
+                            return `Something went wrong: ${data.response.data.message}`;
+                        },
+                    },
+                }
+            );
+            getAllCategories();
+            return true;
+        } catch (error) {
+            console.log("error", error);
+            return false;
+        }
+    };
+
+    const editCategory = async (data) => {
+        console.log("data", data);
+
+        try {
+            let response = await toast.promise(
+                axios.put(
+                    `https://upskilling-egypt.com:3006/api/v1/Category/${selectedCategory.id}`,
+                    data,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("token"),
+                        },
+                    }
+                ),
+                {
+                    pending: `Editing ${selectedCategory.name} Category ..`,
+                    success: `${selectedCategory.name} Category changed to ${data.name} Successfully`,
+                    error: {
+                        render({ data }) {
+                            return `Something went wrong: ${data.response.data.message}`;
+                        },
+                    },
+                }
+            );
+            getAllCategories();
+            return true;
+        } catch (error) {
+            console.log("error", error);
+            return false;
+        }
+    };
+
+    const viewCategory = () => {
+        console.log("selectedCategory", selectedCategory);
     };
 
     useEffect(() => {
@@ -92,6 +219,10 @@ const CategoriesList = () => {
                     title={"Categories Table details"}
                     subTitle={"You can check all details"}
                     actionTitle={"Add new Category"}
+                    action={() => {
+                        setAction("Add");
+                        handleShowActionModal();
+                    }}
                 />
 
                 <div className="categories-table p-4">
@@ -129,19 +260,35 @@ const CategoriesList = () => {
                                                 )}
                                             </td>
                                             <td className="d-flex gap-2 ">
-                                                <button className="btn btn-primary d-flex align-items-center gap-2">
+                                                <button
+                                                    className="btn btn-primary d-flex align-items-center gap-2"
+                                                    onClick={() => {
+                                                        setAction("View");
+                                                        handleShowActionModal(
+                                                            category
+                                                        );
+                                                    }}
+                                                >
                                                     <ViewIcon className="action-icon" />
                                                     View
                                                 </button>
-                                                <button className="btn btn-warning d-flex align-items-center gap-2">
+                                                <button
+                                                    className="btn btn-warning d-flex align-items-center gap-2"
+                                                    onClick={() => {
+                                                        setAction("Edit");
+                                                        handleShowActionModal(
+                                                            category
+                                                        );
+                                                    }}
+                                                >
                                                     <EditIcon className="action-icon" />
                                                     Edit
                                                 </button>
                                                 <button
                                                     className="btn btn-danger d-flex align-items-center gap-2"
                                                     onClick={() => {
-                                                        deleteCategory(
-                                                            category.id
+                                                        handleShowConfirmModal(
+                                                            category
                                                         );
                                                     }}
                                                 >
@@ -159,6 +306,33 @@ const CategoriesList = () => {
                     {categoriesList && categoriesList.length === 0 && (
                         <NoData />
                     )}
+                    <ConfirmModal
+                        title={`Delete ${selectedCategory.name} Category ?`}
+                        message="are you sure you want to delete this item ? if you are sure just click on delete it"
+                        confirmTitle="Delete this item"
+                        onConfirm={() => {
+                            deleteCategory(selectedCategory.id);
+                            handleCloseConfirmModal();
+                        }}
+                        handleClose={handleCloseConfirmModal}
+                        show={showConfirmModal}
+                    />
+                    <ActionModal
+                        action={action}
+                        confirmTitle={"Save"}
+                        // onConfirm={handleCloseActionModal}
+                        selectedItem={
+                            action?.name !== "Add" && selectedCategory
+                        }
+                        onConfirm={
+                            (action === "Add" && addCategory) ||
+                            (action === "Edit" && editCategory) ||
+                            (action === "View" && viewCategory)
+                        }
+                        handleClose={handleCloseActionModal}
+                        placeholder={"Category Name"}
+                        show={showActionModal}
+                    />
                 </div>
             </div>
         </>
