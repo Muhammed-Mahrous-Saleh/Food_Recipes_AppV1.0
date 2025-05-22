@@ -344,7 +344,7 @@ const CategoriesList = () => {
                         confirmTitle={"Save"}
                         // onConfirm={handleCloseActionModal}
                         selectedItem={
-                            action?.name !== "Add" && selectedCategory
+                            (action !== "Add" && selectedCategory) || null
                         }
                         onConfirm={
                             (action === "Add" && addCategory) ||

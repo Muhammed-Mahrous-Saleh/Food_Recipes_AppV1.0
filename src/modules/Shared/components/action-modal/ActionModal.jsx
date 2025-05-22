@@ -24,8 +24,11 @@ const ActionModal = ({
     const [catName, setCatName] = useState("");
 
     useEffect(() => {
+        console.log("selectedItem", selectedItem);
         if (selectedItem) {
             setCatName(selectedItem.name);
+        } else {
+            setCatName("");
         }
     }, [selectedItem]);
 
@@ -45,7 +48,6 @@ const ActionModal = ({
 
     const onClose = () => {
         handleClose();
-        setCatName("");
     };
 
     return (
