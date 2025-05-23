@@ -20,10 +20,8 @@ const CategoriesList = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showActionModal, setShowActionModal] = useState(false);
     const [action, setAction] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState({
-        id: "",
-        name: "",
-    });
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedViewCategory, setSelectedViewCategory] = useState(null);
     // const [modalTriger, setModalTriger] = useState(null);
     // const [modalInfo, setModalInfo] = useState({});
 
@@ -196,8 +194,38 @@ const CategoriesList = () => {
         }
     };
 
-    const viewCategory = () => {
-        console.log("selectedCategory", selectedCategory);
+    const viewCategory = async () => {
+        console.log("starting view category");
+        let data = { id: selectedCategory.id };
+        try {
+            let response = await toast.promise(
+                axios.get(
+                    `https://upskilling-egypt.com:3006/api/v1/Category/${selectedCategory.id}`,
+                    data,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem("token"),
+                        },
+                    }
+                ),
+                {
+                    pending: `Getting ${selectedCategory.name} Category ..`,
+                    success: `${selectedCategory.name} Category got Successfully`,
+                    error: {
+                        render({ data }) {
+                            return `Something went wrong: ${data.response.data.message}`;
+                        },
+                    },
+                }
+            );
+            console.log("response", response);
+            setSelectedViewCategory(response.data);
+            console.log("response", response);
+            return true;
+        } catch (error) {
+            console.log("error", error);
+            return false;
+        }
     };
 
     useEffect(() => {
@@ -266,16 +294,21 @@ const CategoriesList = () => {
                                                     data-bs-toggle="dropdown"
                                                     aria-expanded="false"
                                                 >
-                                                    <i className="fa-solid fa-chevron-down"></i>
+                                                    <i class="fa-solid fa-ellipsis"></i>
                                                 </a>
                                                 <div className="actions-container">
                                                     <ul className="dropdown-menu dropdown-menu-end actions-menu">
                                                         <li className="action">
                                                             <div
                                                                 className="d-flex align-items-center justify-content-start gap-2"
-                                                                onClick={() => {
+                                                                onClick={async () => {
                                                                     setAction(
                                                                         "View"
+                                                                    );
+                                                                    await viewCategory();
+                                                                    console.log(
+                                                                        "viewCategory",
+                                                                        selectedViewCategory
                                                                     );
                                                                     handleShowActionModal(
                                                                         category
@@ -329,11 +362,11 @@ const CategoriesList = () => {
                         <NoData />
                     )}
                     <ConfirmModal
-                        title={`Delete ${selectedCategory.name} Category ?`}
+                        title={`Delete ${selectedCategory?.name} Category ?`}
                         message="are you sure you want to delete this item ? if you are sure just click on delete it"
                         confirmTitle="Delete this item"
                         onConfirm={() => {
-                            deleteCategory(selectedCategory.id);
+                            deleteCategory(selectedCategory?.id);
                             handleCloseConfirmModal();
                         }}
                         handleClose={handleCloseConfirmModal}
@@ -344,7 +377,8 @@ const CategoriesList = () => {
                         confirmTitle={"Save"}
                         // onConfirm={handleCloseActionModal}
                         selectedItem={
-                            (action !== "Add" && selectedCategory) || null
+                            (action === "Edit" && selectedCategory) ||
+                            (action === "View" && selectedViewCategory)
                         }
                         onConfirm={
                             (action === "Add" && addCategory) ||

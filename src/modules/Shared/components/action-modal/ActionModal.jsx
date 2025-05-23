@@ -115,11 +115,12 @@ const ActionModal = ({
                             </form>
                         )) || (
                             <div className="d-flex flex-column justify-content-start align-items-start">
-                                {Object.keys(selectedItem).map((key) => (
-                                    <p key={key}>
-                                        {key} : {selectedItem[key]}
-                                    </p>
-                                ))}
+                                {selectedItem &&
+                                    Object.keys(selectedItem).map((key) => (
+                                        <p key={key}>
+                                            {key} : {selectedItem[key]}
+                                        </p>
+                                    ))}
                             </div>
                         )}
                     </div>
