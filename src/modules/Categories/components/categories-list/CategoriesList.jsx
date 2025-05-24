@@ -1,6 +1,5 @@
 import Header from "@/modules/Shared/components/header/Header";
 import SectionTitle from "@/modules/Shared/components/section-title/SectionTitle";
-import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
