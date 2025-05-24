@@ -10,7 +10,6 @@ const SkeletonLoadingTable = ({ col_count, row_count }) => {
                     <tr key={index}>
                         {Array.from({ length: col_count }).map((_, index) => (
                             <td key={index}>
-                                {" "}
                                 <Skeleton />
                             </td>
                         ))}

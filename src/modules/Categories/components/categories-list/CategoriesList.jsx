@@ -27,6 +27,7 @@ const CategoriesList = () => {
     const [action, setAction] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedViewCategory, setSelectedViewCategory] = useState(null);
+    const [search, setSearch] = useState("");
     const pages = [];
 
     let dateFormat = "dd/MM/yyyy HH:mm a";
@@ -50,13 +51,16 @@ const CategoriesList = () => {
         setShowActionModal(false);
     };
 
-    const getAllCategories = async () => {
+    const getAllCategories = async ({ controller }) => {
         setLoading(true);
         try {
             let response = await toast.promise(
                 axios.get(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+                    `https://upskilling-egypt.com:3006/api/v1/Category/${
+                        search !== "" ? "?name=" + search + "&" : "?"
+                    }pageSize=${pageSize}&pageNumber=${pageNumber}`,
                     {
+                        signal: controller?.signal,
                         headers: {
                             Authorization: localStorage.getItem("token"),
                         },
@@ -70,6 +74,7 @@ const CategoriesList = () => {
             );
             console.log("response", response);
             /**
+             * response data:
              * pageNumber: 1
              * pageSize: 10
              * totalNumberOfPages: 3
@@ -213,9 +218,11 @@ const CategoriesList = () => {
     };
 
     useEffect(() => {
-        getAllCategories(pageSize, pageNumber);
+        const controller = new AbortController();
+        getAllCategories(controller);
+        return () => controller.abort();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageSize, pageNumber]);
+    }, [pageNumber, search]);
 
     for (let number = 1; number <= totalPagesNumber; number++) {
         pages.push(
@@ -247,6 +254,8 @@ const CategoriesList = () => {
                         setAction("Add");
                         handleShowActionModal();
                     }}
+                    search={search}
+                    setSearch={setSearch}
                 />
 
                 <div className="categories-table p-4">
@@ -362,9 +371,11 @@ const CategoriesList = () => {
                             </>
                         )}
                     </table>
-                    <div className="pagination-container d-flex justify-content-end p-1">
-                        <Pagination>{pages}</Pagination>
-                    </div>
+                    {categoriesList && categoriesList.length > 0 && (
+                        <div className="pagination-container d-flex justify-content-end p-1">
+                            <Pagination>{pages}</Pagination>
+                        </div>
+                    )}
 
                     {categoriesList && categoriesList.length === 0 && (
                         <NoData />

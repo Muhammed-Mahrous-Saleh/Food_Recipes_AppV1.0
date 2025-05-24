@@ -657,6 +657,18 @@ ul.actions-menu {
     color: #fff;
 }
 
+.search_input {
+    padding: 10px 20px;
+}
+
+.search_input .input-group.bg-input span:first-child {
+    color: #858d9d;
+}
+
+.search_input .input-group.bg-input span:first-child::after {
+    content: none;
+}
+
 @keyframes pulse {
     0% {
         gap: 1rem;
