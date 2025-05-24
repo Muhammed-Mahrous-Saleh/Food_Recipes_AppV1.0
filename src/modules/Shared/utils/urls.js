@@ -1,5 +1,8 @@
 import axios from "axios";
 
+export const IMAGE_PATH = (imagePath) =>
+    `https://upskilling-egypt.com:3006/${imagePath}`;
+
 const BASE_URL = "https://upskilling-egypt.com:3006/api/v1/";
 
 export const axiosInstance = axios.create({
@@ -17,11 +20,11 @@ export const USERS_URL = {
 };
 
 export const RECIPES_URL = {
-    GET_RECIPES: `${BASE_URL}Recipes`,
-    GET_RECIPE: (id) => `${BASE_URL}Recipes/${id}`,
-    ADD_RECIPE: `${BASE_URL}Recipes`,
-    EDIT_RECIPE: `${BASE_URL}Recipes/`,
-    DELETE_RECIPE: `${BASE_URL}Recipes/`,
+    GET_RECIPES: `${BASE_URL}Recipe/`,
+    GET_RECIPE: (id) => `${BASE_URL}Recipe/${id}`,
+    ADD_RECIPE: `${BASE_URL}Recipe/`,
+    EDIT_RECIPE: (id) => `${BASE_URL}Recipe/${id}`,
+    DELETE_RECIPE: (id) => `${BASE_URL}Recipe/${id}`,
 };
 
 export const CATEGORIES_URL = {

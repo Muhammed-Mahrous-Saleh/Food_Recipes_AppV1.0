@@ -118,7 +118,12 @@ const ActionModal = ({
                                 {selectedItem &&
                                     Object.keys(selectedItem).map((key) => (
                                         <p key={key}>
-                                            {key} : {selectedItem[key]}
+                                            {key} :{" "}
+                                            {key === "recipe"
+                                                ? selectedItem[key].map(
+                                                      (item) => item.name + ","
+                                                  )
+                                                : selectedItem[key]}
                                         </p>
                                     ))}
                             </div>

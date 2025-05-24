@@ -669,6 +669,17 @@ ul.actions-menu {
     content: none;
 }
 
+.recipe_img_container {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.recipe_img_container img {
+    width: 100%;
+}
+
 @keyframes pulse {
     0% {
         gap: 1rem;
