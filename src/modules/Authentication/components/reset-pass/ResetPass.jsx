@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useLocation } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AuthTitle from "../../../Shared/components/authTitle/AuthTitle";
@@ -14,7 +14,6 @@ import { USERS_URL } from "@/modules/Shared/utils/urls";
 const ResetPass = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
 
     let {
         register,
@@ -53,7 +52,7 @@ const ResetPass = () => {
                         register={register}
                         errors={errors}
                         value={location.state?.email}
-                        disabled={true}
+                        // disabled={true}
                         registeredName="email"
                         registeredRules={{
                             required: "Email is required",
