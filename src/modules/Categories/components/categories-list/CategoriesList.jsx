@@ -287,68 +287,70 @@ const CategoriesList = () => {
                                                     dateFormat
                                                 )}
                                             </td>
-                                            <td className="d-flex gap-2">
-                                                <a
-                                                    href="#"
-                                                    role="button"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                >
-                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                </a>
-                                                <div className="actions-container">
-                                                    <ul className="dropdown-menu dropdown-menu-end actions-menu">
-                                                        <li className="action">
-                                                            <div
-                                                                className="d-flex align-items-center justify-content-start gap-2"
-                                                                onClick={async () => {
-                                                                    setAction(
-                                                                        "View"
-                                                                    );
-                                                                    await viewCategory();
-                                                                    console.log(
-                                                                        "viewCategory",
-                                                                        selectedViewCategory
-                                                                    );
-                                                                    handleShowActionModal(
-                                                                        category
-                                                                    );
-                                                                }}
-                                                            >
-                                                                <ViewIcon className="action-icon" />
-                                                                View
-                                                            </div>
-                                                        </li>
-                                                        <li className="action">
-                                                            <div
-                                                                className="d-flex align-items-center justify-content-start gap-2"
-                                                                onClick={() => {
-                                                                    setAction(
-                                                                        "Edit"
-                                                                    );
-                                                                    handleShowActionModal(
-                                                                        category
-                                                                    );
-                                                                }}
-                                                            >
-                                                                <EditIcon className="action-icon" />
-                                                                Edit
-                                                            </div>
-                                                        </li>
-                                                        <li className="action">
-                                                            <div
-                                                                className="d-flex align-items-center justify-content-start gap-2"
-                                                                onClick={() => {
-                                                                    handleShowConfirmModal(
-                                                                        category
-                                                                    );
-                                                                }}
-                                                            >
-                                                                <DeleteIcon className="action-icon" />
-                                                                Delete
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                            <td>
+                                                <div className="actions d-flex align-items-center">
+                                                    <a
+                                                        href="#"
+                                                        role="button"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                    >
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </a>
+                                                    <div className="actions-container">
+                                                        <ul className="dropdown-menu dropdown-menu-end actions-menu">
+                                                            <li className="action">
+                                                                <div
+                                                                    className="d-flex align-items-center justify-content-start gap-2"
+                                                                    onClick={async () => {
+                                                                        setAction(
+                                                                            "View"
+                                                                        );
+                                                                        await viewCategory();
+                                                                        console.log(
+                                                                            "viewCategory",
+                                                                            selectedViewCategory
+                                                                        );
+                                                                        handleShowActionModal(
+                                                                            category
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <ViewIcon className="action-icon" />
+                                                                    View
+                                                                </div>
+                                                            </li>
+                                                            <li className="action">
+                                                                <div
+                                                                    className="d-flex align-items-center justify-content-start gap-2"
+                                                                    onClick={() => {
+                                                                        setAction(
+                                                                            "Edit"
+                                                                        );
+                                                                        handleShowActionModal(
+                                                                            category
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <EditIcon className="action-icon" />
+                                                                    Edit
+                                                                </div>
+                                                            </li>
+                                                            <li className="action">
+                                                                <div
+                                                                    className="d-flex align-items-center justify-content-start gap-2"
+                                                                    onClick={() => {
+                                                                        handleShowConfirmModal(
+                                                                            category
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    <DeleteIcon className="action-icon" />
+                                                                    Delete
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>

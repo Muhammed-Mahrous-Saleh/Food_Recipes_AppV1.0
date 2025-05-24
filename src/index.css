@@ -537,20 +537,29 @@ ul.actions-menu {
 }
 .actions-container {
     position: relative;
-    background-color: red;
 }
 .actions-menu::after {
     content: "";
     border: 10px solid;
     border-color: transparent transparent #fff;
-    /* box-shadow: 0 0 10px 0 rgb(200, 200, 200); */
     position: absolute;
     top: -17px;
     right: 10px;
 }
 
+.actions-menu[data-popper-placement="top-end"]::after {
+    border-color: #fff transparent transparent;
+    top: unset;
+    bottom: -17px;
+}
+
 .actions-menu .action:hover {
     background-color: var(--action-bg);
+}
+
+.actions a {
+    color: var(--text-secondary-color);
+    font-size: 16px;
 }
 
 @keyframes pulse {
