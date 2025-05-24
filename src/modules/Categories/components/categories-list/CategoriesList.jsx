@@ -13,15 +13,21 @@ import Loading from "@/modules/Shared/components/loading/Loading";
 import NoData from "@/modules/Shared/components/no-data/NoData";
 import ConfirmModal from "@/modules/Shared/components/confirmation-modal/ConfirmModal";
 import ActionModal from "@/modules/Shared/components/action-modal/ActionModal";
+import Skeleton from "react-loading-skeleton";
+import SkeletonLoadingTable from "@/modules/Shared/components/skeletonLoadingTable/SkeletonLoadingTable";
+import Pagination from "react-bootstrap/Pagination";
 
 const CategoriesList = () => {
-    const [categoriesList, setCategoriesList] = useState([]);
+    const [categoriesList, setCategoriesList] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [pageNumber, setPageNumber] = useState(1);
+    const [totalPagesNumber, setTotalPagesNumber] = useState(0);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showActionModal, setShowActionModal] = useState(false);
     const [action, setAction] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedViewCategory, setSelectedViewCategory] = useState(null);
+    const pages = [];
 
     let dateFormat = "dd/MM/yyyy HH:mm a";
     let pageSize = 10;
@@ -45,6 +51,7 @@ const CategoriesList = () => {
     };
 
     const getAllCategories = async () => {
+        setLoading(true);
         try {
             let response = await toast.promise(
                 axios.get(
@@ -61,7 +68,16 @@ const CategoriesList = () => {
                     error: "Something went wrong",
                 }
             );
+            console.log("response", response);
+            /**
+             * pageNumber: 1
+             * pageSize: 10
+             * totalNumberOfPages: 3
+             * totalNumberOfRecords: 25
+             */
             setCategoriesList(response.data.data);
+            setTotalPagesNumber(response.data.totalNumberOfPages);
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -201,6 +217,18 @@ const CategoriesList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, pageNumber]);
 
+    for (let number = 1; number <= totalPagesNumber; number++) {
+        pages.push(
+            <Pagination.Item
+                key={number}
+                active={number === pageNumber}
+                onClick={() => setPageNumber(number)}
+            >
+                {number}
+            </Pagination.Item>
+        );
+    }
+
     return (
         <>
             <Header
@@ -232,101 +260,111 @@ const CategoriesList = () => {
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
+                        {loading && !categoriesList && (
+                            <SkeletonLoadingTable col_count={5} row_count={3} />
+                        )}
                         {categoriesList && categoriesList.length > 0 && (
-                            <tbody>
-                                {categoriesList.map((category) => {
-                                    return (
-                                        <tr key={category.id}>
-                                            <th scope="row">{category.id}</th>
-                                            <td>{category.name}</td>
-                                            <td>
-                                                {format(
-                                                    new Date(
-                                                        category.creationDate
-                                                    ),
-                                                    dateFormat
-                                                )}
-                                            </td>
-                                            <td>
-                                                {format(
-                                                    new Date(
-                                                        category.modificationDate
-                                                    ),
-                                                    dateFormat
-                                                )}
-                                            </td>
-                                            <td>
-                                                <div className="actions d-flex align-items-center">
-                                                    <a
-                                                        href="#"
-                                                        role="button"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                    >
-                                                        <i class="fa-solid fa-ellipsis"></i>
-                                                    </a>
-                                                    <div className="actions-container">
-                                                        <ul className="dropdown-menu dropdown-menu-end actions-menu">
-                                                            <li className="action">
-                                                                <div
-                                                                    className="d-flex align-items-center justify-content-start gap-2"
-                                                                    onClick={async () => {
-                                                                        setAction(
-                                                                            "View"
-                                                                        );
-                                                                        await viewCategory();
-                                                                        console.log(
-                                                                            "viewCategory",
-                                                                            selectedViewCategory
-                                                                        );
-                                                                        handleShowActionModal(
-                                                                            category
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    <ViewIcon className="action-icon" />
-                                                                    View
-                                                                </div>
-                                                            </li>
-                                                            <li className="action">
-                                                                <div
-                                                                    className="d-flex align-items-center justify-content-start gap-2"
-                                                                    onClick={() => {
-                                                                        setAction(
-                                                                            "Edit"
-                                                                        );
-                                                                        handleShowActionModal(
-                                                                            category
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    <EditIcon className="action-icon" />
-                                                                    Edit
-                                                                </div>
-                                                            </li>
-                                                            <li className="action">
-                                                                <div
-                                                                    className="d-flex align-items-center justify-content-start gap-2"
-                                                                    onClick={() => {
-                                                                        handleShowConfirmModal(
-                                                                            category
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    <DeleteIcon className="action-icon" />
-                                                                    Delete
-                                                                </div>
-                                                            </li>
-                                                        </ul>
+                            <>
+                                <tbody>
+                                    {categoriesList.map((category) => {
+                                        return (
+                                            <tr key={category.id}>
+                                                <th scope="row">
+                                                    {category.id}
+                                                </th>
+                                                <td>{category.name}</td>
+                                                <td>
+                                                    {format(
+                                                        new Date(
+                                                            category.creationDate
+                                                        ),
+                                                        dateFormat
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {format(
+                                                        new Date(
+                                                            category.modificationDate
+                                                        ),
+                                                        dateFormat
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <div className="actions d-flex align-items-center">
+                                                        <a
+                                                            href="#"
+                                                            role="button"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false"
+                                                        >
+                                                            <i className="fa-solid fa-ellipsis"></i>
+                                                        </a>
+                                                        <div className="actions-container">
+                                                            <ul className="dropdown-menu dropdown-menu-end actions-menu">
+                                                                <li className="action">
+                                                                    <div
+                                                                        className="d-flex align-items-center justify-content-start gap-2"
+                                                                        onClick={async () => {
+                                                                            setAction(
+                                                                                "View"
+                                                                            );
+                                                                            await viewCategory();
+                                                                            console.log(
+                                                                                "viewCategory",
+                                                                                selectedViewCategory
+                                                                            );
+                                                                            handleShowActionModal(
+                                                                                category
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        <ViewIcon className="action-icon" />
+                                                                        View
+                                                                    </div>
+                                                                </li>
+                                                                <li className="action">
+                                                                    <div
+                                                                        className="d-flex align-items-center justify-content-start gap-2"
+                                                                        onClick={() => {
+                                                                            setAction(
+                                                                                "Edit"
+                                                                            );
+                                                                            handleShowActionModal(
+                                                                                category
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        <EditIcon className="action-icon" />
+                                                                        Edit
+                                                                    </div>
+                                                                </li>
+                                                                <li className="action">
+                                                                    <div
+                                                                        className="d-flex align-items-center justify-content-start gap-2"
+                                                                        onClick={() => {
+                                                                            handleShowConfirmModal(
+                                                                                category
+                                                                            );
+                                                                        }}
+                                                                    >
+                                                                        <DeleteIcon className="action-icon" />
+                                                                        Delete
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </>
                         )}
                     </table>
+                    <div className="pagination-container d-flex justify-content-end p-1">
+                        <Pagination>{pages}</Pagination>
+                    </div>
 
                     {categoriesList && categoriesList.length === 0 && (
                         <NoData />

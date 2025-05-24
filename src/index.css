@@ -647,6 +647,16 @@ ul.actions-menu {
     margin-right: 15px;
 }
 
+.pagination-container .page-link {
+    color: var(--primary-color-light);
+}
+.pagination-container .active > .page-link,
+.pagination-container .active .page-link.active {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: #fff;
+}
+
 @keyframes pulse {
     0% {
         gap: 1rem;
