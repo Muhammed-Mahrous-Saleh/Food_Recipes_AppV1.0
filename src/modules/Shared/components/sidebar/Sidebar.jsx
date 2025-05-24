@@ -1,6 +1,6 @@
 import React from "react";
 import { Sidebar as SideBar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Home from "../../../../assets/icons/home.svg?react";
 import Users from "../../../../assets/icons/users.svg?react";
@@ -10,15 +10,32 @@ import Unlock from "../../../../assets/icons/unlock.svg?react";
 import Logout from "../../../../assets/icons/logout.svg?react";
 import logo from "@/assets/images/logo.png";
 import { useState } from "react";
+import ConfirmModal from "../confirmation-modal/ConfirmModal";
 
 const Sidebar = ({ setLoginData }) => {
     const [collapsed, setCollapsed] = useState(false);
+    const [show, setShow] = useState(false);
+    const navigate = useNavigate();
+    /**
+ * 
+ * 
+ * -title,
+    message,
+    -onConfirm,
+    -show,
+    -handleClose,
+    -confirmTitle,
+ */
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const toggleSidebar = () => setCollapsed(!collapsed);
     const handleLogout = () => {
         localStorage.removeItem("token");
         setLoginData(null);
         toast.success("Logout Successfully");
+        navigate("/");
     };
 
     return (
@@ -73,12 +90,20 @@ const Sidebar = ({ setLoginData }) => {
                 </MenuItem>
                 <MenuItem
                     icon={<Logout className="sidebar-icon" />}
-                    component={<Link onClick={handleLogout} to="/" />}
+                    onClick={handleShow}
                     className="pro-menu-item"
                 >
                     Logout
                 </MenuItem>
             </Menu>
+            <ConfirmModal
+                show={show}
+                message={"make sure to save your data before logout"}
+                handleClose={handleClose}
+                title={"Are you sure to logout?"}
+                onConfirm={handleLogout}
+                confirmTitle={"Logout"}
+            />
         </SideBar>
     );
 };

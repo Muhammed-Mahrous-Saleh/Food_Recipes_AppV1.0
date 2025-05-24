@@ -11,6 +11,7 @@
 -   [✔️] T-2.2 — Forgot Password
 -   [✔️] T-2.3 — Reset Password
 -   [✔️] T-2.4 — Protected Routes
+-   [✔️] T-2.5 — Logout
 
 ## T-3: Dashboard
 
