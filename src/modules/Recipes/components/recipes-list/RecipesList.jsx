@@ -95,9 +95,7 @@ const RecipesList = () => {
             setRecipesList(recipesList.filter((recipe) => recipe.id !== id));
 
             let response = await toast.promise(
-                axiosInstance.delete(`${RECIPES_URL.DELETE_RECIPE}`, {
-                    params: { id },
-                }),
+                axiosInstance.delete(`${RECIPES_URL.DELETE_RECIPE(id)}`),
                 {
                     pending: "Deleting Recipe...",
                     success: `Recipe "${deletedRecipe.name}" deleted successfully`,
@@ -180,7 +178,6 @@ const RecipesList = () => {
             );
             console.log("response", response);
             setSelectedViewRecipe(response.data);
-            console.log("response", response);
             return true;
         } catch (error) {
             console.log("error", error);
@@ -300,13 +297,9 @@ const RecipesList = () => {
                                                                                     recipe,
                                                                                 }
                                                                             );
-                                                                            console.log(
-                                                                                "viewRecipe",
-                                                                                selectedViewRecipe
-                                                                            );
-                                                                            handleShowActionModal(
-                                                                                recipe
-                                                                            );
+                                                                            // handleShowActionModal(
+                                                                            //     recipe
+                                                                            // );
                                                                         }}
                                                                     >
                                                                         <ViewIcon className="action-icon" />
@@ -370,24 +363,6 @@ const RecipesList = () => {
                         }}
                         handleClose={handleCloseConfirmModal}
                         show={showConfirmModal}
-                    />
-                    <ActionModal
-                        action={action}
-                        confirmTitle={"Save"}
-                        // onConfirm={handleCloseActionModal}
-                        selectedItem={
-                            (action === "Edit" && selectedRecipe) ||
-                            (action === "View" && selectedViewRecipe) ||
-                            (action === "Add" && { name: "" })
-                        }
-                        onConfirm={
-                            (action === "Add" && addRecipe) ||
-                            (action === "Edit" && editRecipe) ||
-                            (action === "View" && viewRecipe)
-                        }
-                        handleClose={handleCloseActionModal}
-                        placeholder={"Recipe Name"}
-                        show={showActionModal}
                     />
                 </div>
             </div>

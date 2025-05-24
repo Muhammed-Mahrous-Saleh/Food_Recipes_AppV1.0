@@ -34,7 +34,7 @@
 -   [✔️] T-5.1 — List Recipes
 -   [ ] T-5.2 — Add Recipe
 -   [ ] T-5.3 — Edit Recipe
--   [ ] T-5.4 — Delete Recipe
+-   [✔️] T-5.4 — Delete Recipe
 
 # 🐛 Issues
 
