@@ -256,6 +256,7 @@ const CategoriesList = () => {
                     }}
                     search={search}
                     setSearch={setSearch}
+                    setPageNumber={setPageNumber}
                 />
 
                 <div className="categories-table p-4">

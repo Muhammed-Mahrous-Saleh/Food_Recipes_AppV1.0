@@ -10,6 +10,7 @@ const SectionTitle = ({
     action,
     search,
     setSearch,
+    setPageNumber,
 }) => {
     const [searchText, setSearchText] = useState("");
     return (
@@ -38,12 +39,14 @@ const SectionTitle = ({
                         onChange={(e) => {
                             if (e.target.value === "") {
                                 setSearch("");
+                                setPageNumber(1);
                             }
                             setSearchText(e.target.value);
                         }}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 setSearch(searchText);
+                                setPageNumber(1);
                             }
                         }}
                     />
