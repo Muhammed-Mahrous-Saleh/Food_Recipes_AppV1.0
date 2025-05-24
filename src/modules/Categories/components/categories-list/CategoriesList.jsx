@@ -16,6 +16,7 @@ import ActionModal from "@/modules/Shared/components/action-modal/ActionModal";
 import Skeleton from "react-loading-skeleton";
 import SkeletonLoadingTable from "@/modules/Shared/components/skeletonLoadingTable/SkeletonLoadingTable";
 import Pagination from "react-bootstrap/Pagination";
+import { axiosInstance, CATEGORIES_URL } from "@/modules/Shared/utils/urls";
 
 const CategoriesList = () => {
     const [categoriesList, setCategoriesList] = useState(null);
@@ -55,15 +56,12 @@ const CategoriesList = () => {
         setLoading(true);
         try {
             let response = await toast.promise(
-                axios.get(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/${
+                axiosInstance.get(
+                    `${CATEGORIES_URL.GET_CATEGORIES}${
                         search !== "" ? "?name=" + search + "&" : "?"
                     }pageSize=${pageSize}&pageNumber=${pageNumber}`,
                     {
                         signal: controller?.signal,
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                        },
                     }
                 ),
                 {
@@ -96,14 +94,7 @@ const CategoriesList = () => {
             );
 
             let response = await toast.promise(
-                axios.delete(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/${id}`,
-                    {
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                        },
-                    }
-                ),
+                axiosInstance.delete(`${CATEGORIES_URL.DELETE_CATEGORY}${id}`),
                 {
                     pending: "Deleting category...",
                     success: `Category "${deletedCategory.name}" deleted successfully`,
@@ -124,15 +115,7 @@ const CategoriesList = () => {
     const addCategory = async (data) => {
         try {
             let response = await toast.promise(
-                axios.post(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/`,
-                    data,
-                    {
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                        },
-                    }
-                ),
+                axiosInstance.post(CATEGORIES_URL.ADD_CATEGORY, data),
                 {
                     pending: `Adding ${data.name} Category ..`,
                     success: `${data.name} Category added Successfully`,
@@ -156,14 +139,9 @@ const CategoriesList = () => {
 
         try {
             let response = await toast.promise(
-                axios.put(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/${selectedCategory.id}`,
-                    data,
-                    {
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                        },
-                    }
+                axiosInstance.put(
+                    `${CATEGORIES_URL.UPDATE_CATEGORY}${selectedCategory.id}`,
+                    data
                 ),
                 {
                     pending: `Editing ${selectedCategory.name} Category ..`,
@@ -188,14 +166,9 @@ const CategoriesList = () => {
         let data = { id: category.id };
         try {
             let response = await toast.promise(
-                axios.get(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/${category.id}`,
-                    data,
-                    {
-                        headers: {
-                            Authorization: localStorage.getItem("token"),
-                        },
-                    }
+                axiosInstance.get(
+                    `${CATEGORIES_URL.GET_CATEGORY}${category.id}`,
+                    data
                 ),
                 {
                     pending: `Getting ${category.name} Category ..`,

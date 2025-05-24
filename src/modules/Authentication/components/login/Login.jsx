@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { validation } from "@/modules/Shared/utils/validation";
+import { USERS_URL } from "@/modules/Shared/utils/urls";
 
 const Login = ({ saveLoginData }) => {
     let {
@@ -20,10 +22,7 @@ const Login = ({ saveLoginData }) => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            let response = await axios.post(
-                "https://upskilling-egypt.com:3006/api/v1/Users/Login",
-                data
-            );
+            let response = await axios.post(USERS_URL.LOGIN, data);
             localStorage.setItem("token", response.data.token);
             await saveLoginData();
             toast.success("logedin Successfully");
@@ -61,13 +60,7 @@ const Login = ({ saveLoginData }) => {
                         register={register}
                         errors={errors}
                         registeredName="email"
-                        registeredRules={{
-                            required: "Email is required",
-                            pattern: {
-                                value: /\S+@\S{3,}\.\S{2,}/,
-                                message: "Enter a valid email",
-                            },
-                        }}
+                        registeredRules={validation.EMAIL_VALIDATION}
                     />
                     <AuthInput
                         type={"password"}

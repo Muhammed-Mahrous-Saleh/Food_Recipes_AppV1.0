@@ -9,6 +9,7 @@ import Lock from "../../../../assets/icons/lock.svg?react";
 import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { USERS_URL } from "@/modules/Shared/utils/urls";
 
 const ResetPass = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +28,7 @@ const ResetPass = () => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            let response = await axios.post(
-                "https://upskilling-egypt.com:3006/api/v1/Users/Reset",
-                data
-            );
+            let response = await axios.post(USERS_URL.RESET_PASS, data);
             toast.success("Password has been updated successfully");
             navigate("/login");
         } catch (error) {
