@@ -22,35 +22,17 @@ const CategoriesList = () => {
     const [action, setAction] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedViewCategory, setSelectedViewCategory] = useState(null);
-    // const [modalTriger, setModalTriger] = useState(null);
-    // const [modalInfo, setModalInfo] = useState({});
 
     let dateFormat = "dd/MM/yyyy HH:mm a";
     let pageSize = 10;
 
     let handleShowConfirmModal = (category) => {
-        // setModalTriger({ id, func });
-
-        // if (modalTriger.func === "delete")
-        //     setModalInfo({
-        // title: "Delete This Category ?",
-        // message:
-        //     "are you sure you want to delete this item ? if you are sure just click on delete it",
-        // confirmTitle: "Delete this item",
-        // onConfirm: () => {
-        //     deleteCategory(modalTriger.id);
-        // },
-        // handleClose: handleCloseModal,
-        // show: showModal,
-        //     });
         if (category) setSelectedCategory(category);
         setShowConfirmModal(true);
     };
 
     let handleCloseConfirmModal = () => {
         setShowConfirmModal(false);
-        // setModalTriger(null);
-        // setModalInfo({});
     };
 
     let handleShowActionModal = (category) => {
@@ -61,20 +43,6 @@ const CategoriesList = () => {
     let handleCloseActionModal = () => {
         setShowActionModal(false);
     };
-
-    // const getModalData = () => {};
-
-    // let getConfirm = () => {
-    //     console.log("modalInfo", modalTriger);
-    //     switch (modalTriger.func) {
-    //         case "delete":
-    //             deleteCategory(modalTriger.id);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     handleCloseModal();
-    // };
 
     const getAllCategories = async () => {
         try {
