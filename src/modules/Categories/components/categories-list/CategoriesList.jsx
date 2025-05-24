@@ -183,13 +183,13 @@ const CategoriesList = () => {
         }
     };
 
-    const viewCategory = async () => {
+    const viewCategory = async ({ category }) => {
         console.log("starting view category");
-        let data = { id: selectedCategory.id };
+        let data = { id: category.id };
         try {
             let response = await toast.promise(
                 axios.get(
-                    `https://upskilling-egypt.com:3006/api/v1/Category/${selectedCategory.id}`,
+                    `https://upskilling-egypt.com:3006/api/v1/Category/${category.id}`,
                     data,
                     {
                         headers: {
@@ -198,8 +198,8 @@ const CategoriesList = () => {
                     }
                 ),
                 {
-                    pending: `Getting ${selectedCategory.name} Category ..`,
-                    success: `${selectedCategory.name} Category got Successfully`,
+                    pending: `Getting ${category.name} Category ..`,
+                    success: `${category.name} Category got Successfully`,
                     error: {
                         render({ data }) {
                             return `Something went wrong: ${data.response.data.message}`;
@@ -318,7 +318,11 @@ const CategoriesList = () => {
                                                                             setAction(
                                                                                 "View"
                                                                             );
-                                                                            await viewCategory();
+                                                                            await viewCategory(
+                                                                                {
+                                                                                    category,
+                                                                                }
+                                                                            );
                                                                             console.log(
                                                                                 "viewCategory",
                                                                                 selectedViewCategory
