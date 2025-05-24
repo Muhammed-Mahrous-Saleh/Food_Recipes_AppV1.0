@@ -51,18 +51,18 @@ const CategoriesList = () => {
         setShowActionModal(false);
     };
 
-    const getAllCategories = async ({ controller }) => {
+    const getAllCategories = async (controller) => {
         setLoading(true);
         try {
             let response = await toast.promise(
-                axiosInstance.get(
-                    `${CATEGORIES_URL.GET_CATEGORIES}${
-                        search !== "" ? "?name=" + search + "&" : "?"
-                    }pageSize=${pageSize}&pageNumber=${pageNumber}`,
-                    {
-                        signal: controller?.signal,
-                    }
-                ),
+                axiosInstance.get(`${CATEGORIES_URL.GET_CATEGORIES}`, {
+                    signal: controller?.signal,
+                    params: {
+                        name: search,
+                        pageNumber: pageNumber,
+                        pageSize: pageSize,
+                    },
+                }),
                 {
                     pending: "Loading categories...",
                     success: "Categories loaded successfully",
@@ -93,7 +93,9 @@ const CategoriesList = () => {
             );
 
             let response = await toast.promise(
-                axiosInstance.delete(`${CATEGORIES_URL.DELETE_CATEGORY}${id}`),
+                axiosInstance.delete(`${CATEGORIES_URL.DELETE_CATEGORY}`, {
+                    params: { id },
+                }),
                 {
                     pending: "Deleting category...",
                     success: `Category "${deletedCategory.name}" deleted successfully`,
@@ -134,12 +136,10 @@ const CategoriesList = () => {
     };
 
     const editCategory = async (data) => {
-        console.log("data", data);
-
         try {
             let response = await toast.promise(
                 axiosInstance.put(
-                    `${CATEGORIES_URL.UPDATE_CATEGORY}${selectedCategory.id}`,
+                    `${CATEGORIES_URL.EDIT_CATEGORY(selectedCategory.id)}`,
                     data
                 ),
                 {
@@ -166,7 +166,7 @@ const CategoriesList = () => {
         try {
             let response = await toast.promise(
                 axiosInstance.get(
-                    `${CATEGORIES_URL.GET_CATEGORY}${category.id}`,
+                    `${CATEGORIES_URL.GET_CATEGORY(category.id)}`,
                     data
                 ),
                 {
@@ -374,7 +374,8 @@ const CategoriesList = () => {
                         // onConfirm={handleCloseActionModal}
                         selectedItem={
                             (action === "Edit" && selectedCategory) ||
-                            (action === "View" && selectedViewCategory)
+                            (action === "View" && selectedViewCategory) ||
+                            (action === "Add" && { name: "" })
                         }
                         onConfirm={
                             (action === "Add" && addCategory) ||

@@ -18,7 +18,7 @@ export const USERS_URL = {
 
 export const RECIPES_URL = {
     GET_RECIPES: `${BASE_URL}Recipes`,
-    GET_RECIPE: `${BASE_URL}Recipes/`,
+    GET_RECIPE: (id) => `${BASE_URL}Recipes/${id}`,
     ADD_RECIPE: `${BASE_URL}Recipes`,
     EDIT_RECIPE: `${BASE_URL}Recipes/`,
     DELETE_RECIPE: `${BASE_URL}Recipes/`,
@@ -26,8 +26,8 @@ export const RECIPES_URL = {
 
 export const CATEGORIES_URL = {
     GET_CATEGORIES: `${BASE_URL}Category/`,
-    GET_CATEGORY: `${BASE_URL}Category/`,
+    GET_CATEGORY: (id) => `${BASE_URL}Category/${id}`,
     ADD_CATEGORY: `${BASE_URL}Category`,
-    EDIT_CATEGORY: `${BASE_URL}Category/`,
-    DELETE_CATEGORY: `${BASE_URL}Category/`,
+    EDIT_CATEGORY: (id) => `${BASE_URL}Category/${id}`,
+    DELETE_CATEGORY: (id) => `${BASE_URL}Category/${id}`,
 };

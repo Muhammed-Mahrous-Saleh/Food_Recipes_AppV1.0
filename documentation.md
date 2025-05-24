@@ -40,3 +40,5 @@
 -   [✅] I-5.1.1 — Not all recipes are fetched (possibly due to pagination bug)
 
 -   [✅] I-4.6.1 — can't read id from undefined object
+-   [✅] I-4.2.1 — when click on add new category twice, second time will has the last value of add category.
+-   [✅] I-4.2.2 — can't find url after updating urls based on axios instance
