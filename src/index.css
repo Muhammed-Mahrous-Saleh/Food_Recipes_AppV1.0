@@ -674,6 +674,11 @@ ul.actions-menu {
     height: 56px;
     border-radius: 10px;
     overflow: hidden;
+    background-color: #dddddd;
+    border: 1px solid #c5c5c5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .recipe_img_container img {
