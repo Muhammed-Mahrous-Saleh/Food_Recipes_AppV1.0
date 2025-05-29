@@ -95,7 +95,7 @@ importers:
         version: 1.1.8(vite@6.3.5)
       vite-plugin-svgr:
         specifier: ^4.3.0
-        version: 4.3.0(rollup@4.40.2)(vite@6.3.5)
+        version: 4.3.0(rollup@4.40.2)(typescript@4.9.5)(vite@6.3.5)
 
 packages:
 
@@ -1898,6 +1898,11 @@ packages:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
 
+  typescript@4.9.5:
+    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+
   uncontrollable@7.2.1:
     resolution: {integrity: sha512-svtcfoTADIB0nT9nltgjujTi7BzVmwjZClOmskKu/E8FW9BXzg9os8OLr4f8Dlnk0rYWJIWr4wv9eKUXiQvQwQ==}
     peerDependencies:
@@ -2615,12 +2620,12 @@ snapshots:
       '@svgr/babel-plugin-transform-react-native-svg': 8.1.0(@babel/core@7.27.1)
       '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.27.1)
 
-  '@svgr/core@8.1.0':
+  '@svgr/core@8.1.0(typescript@4.9.5)':
     dependencies:
       '@babel/core': 7.27.1
       '@svgr/babel-preset': 8.1.0(@babel/core@7.27.1)
       camelcase: 6.3.0
-      cosmiconfig: 8.3.6
+      cosmiconfig: 8.3.6(typescript@4.9.5)
       snake-case: 3.0.4
     transitivePeerDependencies:
       - supports-color
@@ -2631,11 +2636,11 @@ snapshots:
       '@babel/types': 7.27.1
       entities: 4.5.0
 
-  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0)':
+  '@svgr/plugin-jsx@8.1.0(@svgr/core@8.1.0(typescript@4.9.5))':
     dependencies:
       '@babel/core': 7.27.1
       '@svgr/babel-preset': 8.1.0(@babel/core@7.27.1)
-      '@svgr/core': 8.1.0
+      '@svgr/core': 8.1.0(typescript@4.9.5)
       '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
     transitivePeerDependencies:
@@ -2861,12 +2866,14 @@ snapshots:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  cosmiconfig@8.3.6:
+  cosmiconfig@8.3.6(typescript@4.9.5):
     dependencies:
       import-fresh: 3.3.1
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
+    optionalDependencies:
+      typescript: 4.9.5
 
   cross-spawn@7.0.6:
     dependencies:
@@ -3820,6 +3827,9 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.1
 
+  typescript@4.9.5:
+    optional: true
+
   uncontrollable@7.2.1(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.27.1
@@ -3856,11 +3866,11 @@ snapshots:
       pathe: 1.1.2
       vite: 6.3.5
 
-  vite-plugin-svgr@4.3.0(rollup@4.40.2)(vite@6.3.5):
+  vite-plugin-svgr@4.3.0(rollup@4.40.2)(typescript@4.9.5)(vite@6.3.5):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.40.2)
-      '@svgr/core': 8.1.0
-      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0)
+      '@svgr/core': 8.1.0(typescript@4.9.5)
+      '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@4.9.5))
       vite: 6.3.5
     transitivePeerDependencies:
       - rollup

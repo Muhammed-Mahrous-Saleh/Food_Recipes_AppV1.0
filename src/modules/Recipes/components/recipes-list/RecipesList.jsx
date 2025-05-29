@@ -20,6 +20,7 @@ import {
     RECIPES_URL,
     IMAGE_PATH,
 } from "@/modules/Shared/utils/urls";
+import { useNavigate } from "react-router-dom";
 
 const RecipesList = () => {
     const [recipesList, setRecipesList] = useState(null);
@@ -32,6 +33,7 @@ const RecipesList = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [selectedViewRecipe, setSelectedViewRecipe] = useState(null);
     const [search, setSearch] = useState("");
+    const navigate = useNavigate();
     const pages = [];
 
     let dateFormat = "dd/MM/yyyy HH:mm a";
@@ -49,6 +51,11 @@ const RecipesList = () => {
     let handleShowActionModal = (recipe) => {
         if (recipe) setSelectedRecipe(recipe);
         setShowActionModal(true);
+    };
+
+    let handleNavigateToRecipe = (recipe) => {
+        if (recipe) setSelectedRecipe(recipe);
+        navigate(`/dashboard/recipe-data`, { state: { recipe } });
     };
 
     let handleCloseActionModal = () => {
@@ -219,7 +226,7 @@ const RecipesList = () => {
                     actionTitle={"Add new Recipe"}
                     action={() => {
                         setAction("Add");
-                        handleShowActionModal();
+                        handleNavigateToRecipe();
                     }}
                     search={search}
                     setSearch={setSearch}

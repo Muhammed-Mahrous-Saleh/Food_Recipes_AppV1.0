@@ -122,8 +122,11 @@ body {
 }
 
 .input-group.bg-input input,
+.input-group.bg-input textarea,
 .input-group.bg-input input:active,
-.input-group.bg-input input:focus {
+.input-group.bg-input textarea:active,
+.input-group.bg-input input:focus,
+.input-group.bg-input textarea:focus {
     color: var(--input-text-color);
     font-weight: 400;
     line-height: 100%;
@@ -683,6 +686,37 @@ ul.actions-menu {
 
 .recipe_img_container img {
     width: 100%;
+}
+
+.file-upload-box {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba(
+        var(--sidebar-ind-bg-color-red),
+        var(--sidebar-ind-bg-color-green),
+        var(--sidebar-ind-bg-color-blue),
+        var(--sidebar-ind-bg-color-opacity)
+    );
+    border: 1px dashed var(--primary-color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    cursor: pointer;
+}
+
+.image-drag-container {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-drag-container span {
+    color: var(--sidebar-indecator-color);
 }
 
 @keyframes pulse {
