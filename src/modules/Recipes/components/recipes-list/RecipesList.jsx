@@ -320,7 +320,7 @@ const RecipesList = () => {
                                                                             setAction(
                                                                                 "Edit"
                                                                             );
-                                                                            handleShowActionModal(
+                                                                            handleNavigateToRecipe(
                                                                                 recipe
                                                                             );
                                                                         }}
