@@ -21,6 +21,7 @@ import {
     IMAGE_PATH,
 } from "@/modules/Shared/utils/urls";
 import { useNavigate } from "react-router-dom";
+import RecipeActionModal from "../recipe-aciton-modal/RecipeActionModal";
 
 const RecipesList = () => {
     const [recipesList, setRecipesList] = useState(null);
@@ -304,9 +305,9 @@ const RecipesList = () => {
                                                                                     recipe,
                                                                                 }
                                                                             );
-                                                                            // handleShowActionModal(
-                                                                            //     recipe
-                                                                            // );
+                                                                            handleShowActionModal(
+                                                                                recipe
+                                                                            );
                                                                         }}
                                                                     >
                                                                         <ViewIcon className="action-icon" />
@@ -370,6 +371,12 @@ const RecipesList = () => {
                         }}
                         handleClose={handleCloseConfirmModal}
                         show={showConfirmModal}
+                    />
+                    <RecipeActionModal
+                        action={action}
+                        selectedItem={selectedViewRecipe}
+                        handleClose={handleCloseActionModal}
+                        show={showActionModal}
                     />
                 </div>
             </div>
