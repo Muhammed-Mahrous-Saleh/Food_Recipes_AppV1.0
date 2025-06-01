@@ -718,6 +718,38 @@ ul.actions-menu {
 .image-drag-container span {
     color: var(--sidebar-indecator-color);
 }
+.form-check {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.form-check input.custom-form-check-input {
+    position: relative;
+    background-color: red;
+}
+.form-check input.custom-form-check-input:checked ~ label {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: #fff;
+    text-decoration: none;
+    border: none;
+}
+
+.form-check input.custom-form-check-input ~ label {
+    cursor: pointer;
+    padding: 3px 20px;
+    border-radius: 50px;
+    border: 1px solid var(--input-text-color);
+    margin-inline: auto;
+    text-decoration: line-through;
+    color: var(--input-text-color);
+}
+
+.form-check .custom-form-check-input {
+    display: none;
+}
 
 @keyframes pulse {
     0% {

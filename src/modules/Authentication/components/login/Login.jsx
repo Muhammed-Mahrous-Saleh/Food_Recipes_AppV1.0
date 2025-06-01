@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { validation } from "@/modules/Shared/utils/validation";
-import { USERS_URL } from "@/modules/Shared/utils/urls";
+import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 
 const Login = ({ saveLoginData }) => {
     let {
@@ -22,7 +22,7 @@ const Login = ({ saveLoginData }) => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            let response = await axios.post(USERS_URL.LOGIN, data);
+            let response = await axiosInstance.post(USERS_URL.LOGIN, data);
             localStorage.setItem("token", response.data.token);
             await saveLoginData();
             toast.success("logedin Successfully");

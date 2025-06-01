@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { USERS_URL } from "@/modules/Shared/utils/urls";
+import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 
 const ForgetPass = () => {
     let {
@@ -21,7 +21,10 @@ const ForgetPass = () => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            let response = await axios.post(USERS_URL.FORGET_PASS, data);
+            let response = await axiosInstance.post(
+                USERS_URL.FORGET_PASS,
+                data
+            );
 
             toast.success(
                 "Reset OTP sent Successfully, Please check your Email!"

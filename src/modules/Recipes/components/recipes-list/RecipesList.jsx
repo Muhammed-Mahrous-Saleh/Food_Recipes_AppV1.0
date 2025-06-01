@@ -252,17 +252,36 @@ const RecipesList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber, search, tagFilter, categoryFilter]);
 
+    pages.push(<Pagination.First onClick={() => setPageNumber(1)} />);
+    pages.push(
+        <Pagination.Prev onClick={() => setPageNumber(pageNumber - 1)} />
+    );
     for (let number = 1; number <= totalPagesNumber; number++) {
-        pages.push(
-            <Pagination.Item
-                key={number}
-                active={number === pageNumber}
-                onClick={() => setPageNumber(number)}
-            >
-                {number}
-            </Pagination.Item>
-        );
+        if (
+            number === totalPagesNumber ||
+            number === pageNumber ||
+            number === pageNumber - 1 ||
+            number === pageNumber + 1
+        ) {
+            pages.push(
+                <Pagination.Item
+                    key={number}
+                    active={number === pageNumber}
+                    onClick={() => setPageNumber(number)}
+                >
+                    {number}
+                </Pagination.Item>
+            );
+        } else if (number === 1 || number === totalPagesNumber - 1) {
+            pages.push(<Pagination.Ellipsis />);
+        }
     }
+    pages.push(
+        <Pagination.Next onClick={() => setPageNumber(pageNumber + 1)} />
+    );
+    pages.push(
+        <Pagination.Last onClick={() => setPageNumber(totalPagesNumber)} />
+    );
     return (
         <>
             <Header
