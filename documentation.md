@@ -7,11 +7,15 @@
 
 ## T-2: Authentication
 
+<!-- todo -->
+
 -   [✔️] T-2.1 — Login
 -   [✔️] T-2.2 — Forgot Password
 -   [✔️] T-2.3 — Reset Password
 -   [✔️] T-2.4 — Protected Routes
 -   [✔️] T-2.5 — Logout
+-   [] T-2.6 — Change Password
+-   [] T-2.7 — Register
 
 ## T-3: Dashboard
 
@@ -31,10 +35,22 @@
 
 ## T-5: Recipes Module
 
+<!-- todo -->
+
 -   [✔️] T-5.1 — List Recipes
--   [ ] T-5.2 — Add Recipe
--   [ ] T-5.3 — Edit Recipe
+-   [✔️] T-5.2 — Add Recipe
+-   [✔️] T-5.3 — Edit Recipe
 -   [✔️] T-5.4 — Delete Recipe
+-   [✔️] T-5.5 — Filter Recipes based on tags
+-   [✔️] T-5.6 — Filter Recipes based on categories
+
+## T-6: Users Module
+
+<!-- todo -->
+
+-   [] T-6.1 — List Users
+-   [] T-6.2 — Delete User
+-   [] T-6.3 — Filter Users
 
 # 🐛 Issues
 

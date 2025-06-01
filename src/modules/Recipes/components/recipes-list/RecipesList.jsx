@@ -19,6 +19,8 @@ import {
     axiosInstance,
     RECIPES_URL,
     IMAGE_PATH,
+    TAGS_URL,
+    CATEGORIES_URL,
 } from "@/modules/Shared/utils/urls";
 import { useNavigate } from "react-router-dom";
 import RecipeActionModal from "../recipe-aciton-modal/RecipeActionModal";
@@ -33,7 +35,11 @@ const RecipesList = () => {
     const [action, setAction] = useState(null);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [selectedViewRecipe, setSelectedViewRecipe] = useState(null);
+    const [tagsList, setTagsList] = useState([]);
+    const [catIdList, setCatIdList] = useState([]);
     const [search, setSearch] = useState("");
+    const [tagFilter, setTagFilter] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState("");
     const navigate = useNavigate();
     const pages = [];
 
@@ -56,11 +62,53 @@ const RecipesList = () => {
 
     let handleNavigateToRecipe = (recipe) => {
         if (recipe) setSelectedRecipe(recipe);
-        navigate(`/dashboard/recipe-data`, { state: { recipe } });
+        navigate(`/dashboard/recipe-data`, {
+            state: { recipe, tagsList, catIdList },
+        });
     };
 
     let handleCloseActionModal = () => {
         setShowActionModal(false);
+    };
+
+    let getAllTags = async (controller) => {
+        try {
+            let response = await toast.promise(
+                axiosInstance.get(`${TAGS_URL.GET_TAGS}`, {
+                    signal: controller?.signal,
+                    params: { pageNumber: 1, pageSize: 1000 },
+                }),
+                {
+                    pending: "Loading Tags...",
+                    success: "Tags loaded successfully",
+                    error: `Something went wrong in tags`,
+                }
+            );
+            setTagsList(response.data);
+            console.log("tags response", response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    let getAllCats = async (controller) => {
+        try {
+            let response = await toast.promise(
+                axiosInstance.get(`${CATEGORIES_URL.GET_CATEGORIES}`, {
+                    params: { pageNumber: 1, pageSize: 1000 },
+                    signal: controller?.signal,
+                }),
+                {
+                    pending: "Loading Categories...",
+                    success: "Categories loaded successfully",
+                    error: `Something went wrong in categories`,
+                }
+            );
+            setCatIdList(response.data.data);
+            console.log("categories response", response);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const getAllRecipes = async (controller) => {
@@ -71,6 +119,8 @@ const RecipesList = () => {
                     signal: controller?.signal,
                     params: {
                         name: search,
+                        tagId: tagFilter,
+                        categoryId: categoryFilter,
                         pageNumber: pageNumber,
                         pageSize: pageSize,
                     },
@@ -195,10 +245,12 @@ const RecipesList = () => {
 
     useEffect(() => {
         const controller = new AbortController();
+        getAllTags(controller);
+        getAllCats(controller);
         getAllRecipes(controller);
         return () => controller.abort();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageNumber, search]);
+    }, [pageNumber, search, tagFilter, categoryFilter]);
 
     for (let number = 1; number <= totalPagesNumber; number++) {
         pages.push(
@@ -232,6 +284,12 @@ const RecipesList = () => {
                     search={search}
                     setSearch={setSearch}
                     setPageNumber={setPageNumber}
+                    tagsList={tagsList}
+                    tagFilter={tagFilter}
+                    setTagFilter={setTagFilter}
+                    catsList={catIdList}
+                    categoryFilter={categoryFilter}
+                    setCategoryFilter={setCategoryFilter}
                 />
 
                 <div className="categories-table p-4">

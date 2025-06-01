@@ -14,8 +14,7 @@ const RecipeData = () => {
     const [fileName, setFileName] = useState([]);
     const [preview, setPreview] = useState(null);
     const [dragActive, setDragActive] = useState(false);
-    const [tagsList, setTagsList] = useState([]);
-    const [catIdList, setCatIdList] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [saveLoading, setSaveLoading] = useState(false);
@@ -23,7 +22,7 @@ const RecipeData = () => {
     const navigate = useNavigate();
     const inputRef = useRef(null);
     const location = useLocation();
-    const { recipe } = location.state || {};
+    const { recipe, tagsList, catIdList } = location.state || {};
 
     const appendToFormData = (data) => {
         const formData = new FormData();
@@ -138,48 +137,6 @@ const RecipeData = () => {
         navigate(-1);
     };
 
-    let getAllTags = async (controller) => {
-        setLoading(true);
-        try {
-            let response = await toast.promise(
-                axiosInstance.get(`${TAGS_URL.GET_TAGS}`, {
-                    signal: controller?.signal,
-                    params: { pageNumber: 1, pageSize: 1000 },
-                }),
-                {
-                    pending: "Loading Tags...",
-                    success: "Tags loaded successfully",
-                    error: `Something went wrong in tags`,
-                }
-            );
-            setTagsList(response.data);
-            console.log("tags response", response.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    let getAllCats = async (controller) => {
-        setLoading(true);
-        try {
-            let response = await toast.promise(
-                axiosInstance.get(`${CATEGORIES_URL.GET_CATEGORIES}`, {
-                    params: { pageNumber: 1, pageSize: 1000 },
-                    signal: controller?.signal,
-                }),
-                {
-                    pending: "Loading Categories...",
-                    success: "Categories loaded successfully",
-                    error: `Something went wrong in categories`,
-                }
-            );
-            setCatIdList(response.data.data);
-            console.log("categories response", response);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     let getRecipe = async (controller) => {
         setLoading(true);
         try {
@@ -221,8 +178,6 @@ const RecipeData = () => {
     useEffect(() => {
         setLoading(true);
         const controller = new AbortController();
-        getAllTags(controller);
-        getAllCats(controller);
         getRecipe(controller);
         return () => controller.abort();
 
