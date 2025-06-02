@@ -14,7 +14,11 @@ const Navbar = () => {
                     <div className="user-info-container d-flex justify-content-center align-items-center ">
                         <div className="user-img-container d-flex">
                             <img
-                                src={IMAGE_PATH(currentUser?.imagePath)}
+                                src={
+                                    currentUser.imagePath
+                                        ? IMAGE_PATH(currentUser?.imagePath)
+                                        : profile
+                                }
                                 alt="user image"
                                 className="object-fit-cover"
                             />

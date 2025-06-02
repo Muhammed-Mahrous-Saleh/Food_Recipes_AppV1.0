@@ -64,3 +64,4 @@
 -   [✅] I-4.6.1 — can't read id from undefined object
 -   [✅] I-4.2.1 — when click on add new category twice, second time will has the last value of add category.
 -   [✅] I-4.2.2 — can't find url after updating urls based on axios instance
+-   [✅] I-3.3.1 — no user profile image if user didn't upload one
