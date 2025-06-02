@@ -3,16 +3,15 @@ import Navbar from "../navbar/Navbar";
 import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 
-const MasterLayout = ({ loginData, setLoginData, decodeToken }) => {
-    if (!loginData) loginData = decodeToken();
+const MasterLayout = () => {
     return (
         <>
             <div className="d-flex">
                 <div className="sidebar">
-                    <Sidebar setLoginData={setLoginData} />
+                    <Sidebar />
                 </div>
                 <div className="w-100">
-                    <Navbar loginData={loginData} />
+                    <Navbar />
                     <Outlet />
                 </div>
             </div>

@@ -6,12 +6,14 @@ import Lock from "../../../../assets/icons/lock.svg?react";
 import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { validation } from "@/modules/Shared/utils/validation";
 import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
-const Login = ({ saveLoginData }) => {
+const Login = () => {
+    let { saveLoginData } = useContext(AuthContext);
     let {
         register,
         formState: { errors },

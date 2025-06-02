@@ -12,8 +12,11 @@ import logo from "@/assets/images/logo.png";
 import { useState } from "react";
 import ConfirmModal from "../confirmation-modal/ConfirmModal";
 import ChangePasswordModal from "@/modules/Authentication/components/change-pass-modal/ChangePasswordModal";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
-const Sidebar = ({ setLoginData }) => {
+const Sidebar = () => {
+    const { setLoginData } = useContext(AuthContext);
     const [collapsed, setCollapsed] = useState(false);
     const [show, setShow] = useState(false);
     const [showChange, setShowChange] = useState(false);

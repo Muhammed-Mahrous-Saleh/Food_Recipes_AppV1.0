@@ -19,38 +19,24 @@ import RecipesList from "./modules/Recipes/components/recipes-list/RecipesList";
 import FavList from "./modules/Favorites/components/fav-list/FavList";
 import CategoryData from "./modules/Categories/components/category-data/CategoryData";
 import { ToastContainer } from "react-toastify";
-import { useState, useEffect, useCallback } from "react";
-import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from "react";
 import ProtectedRoute from "./modules/Shared/components/protected-route/ProtectedRoute";
 import Loading from "./modules/Shared/components/loading/Loading";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-    const [loginData, setLoginData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
-    const decodeToken = useCallback(() => {
-        const userToken = localStorage.getItem("token");
-        if (!userToken) return null;
-        const decodedData = jwtDecode(userToken);
-        return decodedData;
-    }, []);
-
-    const saveLoginData = useCallback(() => {
-        try {
-            const decodedData = decodeToken();
-            setLoginData(decodedData);
-        } catch (error) {
-            console.error("Failed to decode token:", error);
-            localStorage.removeItem("token");
-            setLoginData(null);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [decodeToken]);
+    const { loginData } = useContext(AuthContext);
 
     useEffect(() => {
-        saveLoginData();
-    }, [saveLoginData]);
+        if (loginData) {
+            setIsLoading(false);
+        } else {
+            setIsLoading(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (isLoading) {
         return <Loading />;
@@ -64,11 +50,11 @@ function App() {
             children: [
                 {
                     index: true,
-                    element: <Login saveLoginData={saveLoginData} />,
+                    element: <Login />,
                 },
                 {
                     path: "login",
-                    element: <Login saveLoginData={saveLoginData} />,
+                    element: <Login />,
                 },
                 { path: "register", element: <Register /> },
                 { path: "forget-password", element: <ForgetPass /> },
@@ -79,12 +65,8 @@ function App() {
         {
             path: "dashboard",
             element: (
-                <ProtectedRoute loginData={loginData}>
-                    <MasterLayout
-                        loginData={loginData}
-                        setLoginData={setLoginData}
-                        decodeToken={decodeToken}
-                    />
+                <ProtectedRoute>
+                    <MasterLayout />
                 </ProtectedRoute>
             ),
             errorElement: <NotFound />,

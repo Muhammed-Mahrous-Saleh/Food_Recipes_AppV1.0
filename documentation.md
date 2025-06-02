@@ -14,10 +14,11 @@
 -   [✔️] T-2.3 — Reset Password
 -   [✔️] T-2.4 — Protected Routes
 -   [✔️] T-2.5 — Logout
--   [] T-2.6 — Change Password
+-   [✔️] T-2.6 — Change Password
 -   [] T-2.7 — Register
--   [] T-2.8 — Login Data context
--   [] T-2.9 — deal with
+-   [✔️] T-2.8 — Login Data context
+-   [✔️] T-2.9 — deal with fetching current user data
+-   [] T-2.10 — Sidebar Authoriation between system user and super admin
 
 ## T-3: Dashboard
 
@@ -26,7 +27,7 @@
 -   [✔️] T-3.1 — Header Component
 -   [✔️] T-3.2 — Sidebar
 -   [✔️] T-3.3 — Navbar
--   [] T-3.4 — change user Photo based on photo from login Data
+-   [✔️] T-3.4 — change user Photo based on imagePath from login Data
 
 ## T-4: Categories Module
 

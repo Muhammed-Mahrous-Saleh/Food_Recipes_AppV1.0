@@ -1,18 +1,26 @@
 import React from "react";
 import profile from "@/assets/images/profile.png";
 import Alert from "@/assets/icons/alert.svg?react";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { IMAGE_PATH } from "../../utils/urls";
 
-const Navbar = ({ loginData }) => {
+const Navbar = () => {
+    const { currentUser } = useContext(AuthContext);
     return (
         <div className="navbar-container p-3">
             <nav className="navbar navbar-expand-lg navbar-light bg-light p-3 rounded-4">
                 <div className="container-fluid justify-content-end">
                     <div className="user-info-container d-flex justify-content-center align-items-center ">
-                        <div className="user-img-container">
-                            <img src={profile} alt="user image" />
+                        <div className="user-img-container d-flex">
+                            <img
+                                src={IMAGE_PATH(currentUser?.imagePath)}
+                                alt="user image"
+                                className="object-fit-cover"
+                            />
                         </div>
                         <div className="user-name-container">
-                            {loginData?.userName}
+                            {currentUser?.userName}
                         </div>
                     </div>
                     <div className="dropdown mx-4">
