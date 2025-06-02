@@ -27,6 +27,7 @@ export const USERS_URL = {
     DELETE_USER: (id) => `/Users/${id}`,
     GET_CURRENT_USER: "/Users/currentUser",
     CHANGE_PASSWORD: `/Users/ChangePassword`,
+    VERIFY_USER: `/Users/verify`,
 };
 
 export const RECIPES_URL = {

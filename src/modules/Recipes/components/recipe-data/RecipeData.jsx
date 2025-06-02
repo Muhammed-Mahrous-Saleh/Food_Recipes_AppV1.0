@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -10,17 +10,17 @@ import {
 } from "@/modules/Shared/utils/urls";
 import { toast } from "react-toastify";
 import SkeletonLoadingTable from "@/modules/Shared/components/skeletonLoadingTable/SkeletonLoadingTable";
+import DragDropImgArea from "@/modules/Shared/components/drag-drop-image/DragDropImgArea";
 const RecipeData = () => {
     const [fileName, setFileName] = useState([]);
     const [preview, setPreview] = useState(null);
-    const [dragActive, setDragActive] = useState(false);
 
     const [loading, setLoading] = useState(true);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
     const [saveLoading, setSaveLoading] = useState(false);
     const [mode, setMode] = useState("ADD");
     const navigate = useNavigate();
-    const inputRef = useRef(null);
+
     const location = useLocation();
     const { recipe, tagsList, catIdList } = location.state || {};
 
@@ -32,45 +32,6 @@ const RecipeData = () => {
         }
 
         return formData;
-    };
-    const handleDragOver = (e) => {
-        e.preventDefault();
-        setDragActive(true);
-    };
-
-    const handleDragLeave = (e) => {
-        e.preventDefault();
-        setDragActive(false);
-    };
-
-    const handleDrop = (e) => {
-        e.preventDefault();
-        setDragActive(false);
-        const file = e.dataTransfer.files[0];
-        handleFile(file);
-    };
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        handleFile(file);
-    };
-
-    const handleFile = (file) => {
-        if (file && file.type.startsWith("image/")) {
-            setFileName(file.name);
-            setValue("recipeImage", file, { shouldValidate: true });
-
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result);
-            };
-            reader.readAsDataURL(file);
-        } else {
-            toast.error("Please select an image file");
-            setPreview(null);
-            setFileName("");
-            setValue("recipeImage", null, { shouldValidate: true });
-        }
     };
 
     const {
@@ -103,7 +64,7 @@ const RecipeData = () => {
         console.log("data", data);
         try {
             if (selectedRecipe) {
-                let response = await toast.promise(
+                await toast.promise(
                     axiosInstance.put(
                         `${RECIPES_URL.EDIT_RECIPE(selectedRecipe.id)}`,
                         recipeData
@@ -115,7 +76,7 @@ const RecipeData = () => {
                     }
                 );
             } else {
-                let response = await toast.promise(
+                await toast.promise(
                     axiosInstance.post(`${RECIPES_URL.ADD_RECIPE}`, recipeData),
                     {
                         pending: `Saving "${data.name}" Recipe...`,
@@ -376,48 +337,14 @@ const RecipeData = () => {
                                         </span>
                                     )}
                                 </div>
-                                <div className="file-upload-box">
-                                    <div
-                                        className="image-drag-container p-3 d-flex flex-column"
-                                        onClick={() => inputRef.current.click()}
-                                        onDrop={handleDrop}
-                                        onDragOver={handleDragOver}
-                                        onDragLeave={handleDragLeave}
-                                        style={{
-                                            borderColor: "#999",
-                                            color: "#666",
-                                        }}
-                                    >
-                                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                                        <h6>
-                                            {(dragActive && (
-                                                <span>Drop image here</span>
-                                            )) || (
-                                                <div>
-                                                    Drag and Drop or
-                                                    <span>
-                                                        {" "}
-                                                        choose an image item{" "}
-                                                    </span>
-                                                    to upload
-                                                </div>
-                                            )}
-                                        </h6>
-                                        <input
-                                            disabled={saveLoading}
-                                            type="file"
-                                            name="recipeImage"
-                                            id="recipeImage"
-                                            accept="image/*"
-                                            {...register("recipeImage", {
-                                                required: "Image is required",
-                                            })}
-                                            ref={inputRef}
-                                            onChange={handleFileChange}
-                                            style={{ display: "none" }}
-                                        />
-                                    </div>
-                                </div>
+
+                                <DragDropImgArea
+                                    register={register}
+                                    saveLoading={saveLoading}
+                                    setValue={setValue}
+                                    setFileName={setFileName}
+                                    setPreview={setPreview}
+                                />
 
                                 {errors["recipeImage"] && (
                                     <span className="text-danger">

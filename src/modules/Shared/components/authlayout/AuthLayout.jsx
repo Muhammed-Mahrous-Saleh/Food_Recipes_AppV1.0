@@ -8,12 +8,12 @@ const AuthLayout = () => {
             <div className="auth-container">
                 <div className="container-fluid bg-overlay">
                     <div className="row vh-100 justify-content-center align-items-center">
-                        <div className="auth-card col-md-5 bg-white rounded-3">
+                        <div className="auth-card col-md-6 bg-white rounded-3">
                             <div className="logo-container text-center">
                                 <img
                                     src={logo}
                                     alt="logo brand with title"
-                                    className="w-75"
+                                    className="w-50"
                                 />
                             </div>
                             <Outlet />

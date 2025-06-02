@@ -15,7 +15,7 @@
 -   [✔️] T-2.4 — Protected Routes
 -   [✔️] T-2.5 — Logout
 -   [✔️] T-2.6 — Change Password
--   [] T-2.7 — Register
+-   [✔️] T-2.7 — Register
 -   [✔️] T-2.8 — Login Data context
 -   [✔️] T-2.9 — deal with fetching current user data
 -   [✔️] T-2.10 — Sidebar Authoriation between system user and super admin

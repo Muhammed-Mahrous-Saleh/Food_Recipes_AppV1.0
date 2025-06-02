@@ -23,17 +23,10 @@ import ProtectedRoute from "./modules/Shared/components/protected-route/Protecte
 import Loading from "./modules/Shared/components/loading/Loading";
 import { useContext } from "react";
 import { AuthContext } from "./context/context";
-import { useEffect } from "react";
 
 function App() {
-    const { isLoading, currentUser, loginData } = useContext(AuthContext);
+    const { isLoading } = useContext(AuthContext);
 
-    useEffect(() => {
-        console.log("current user - from app", currentUser);
-    }, [currentUser]);
-    useEffect(() => {
-        console.log("loginData - from app", loginData);
-    }, [loginData]);
     if (isLoading) {
         return <Loading />;
     }

@@ -37,4 +37,34 @@ export const validation = {
                 value === newPassword || "Passwords do not match",
         };
     },
+
+    USERNAME_VALIDATION: {
+        required: "User Name is required",
+        minLength: {
+            value: 4,
+            message: "The User Name must be at least 4 characters.",
+        },
+        validate: {
+            isEndUpWithNumber: (value) =>
+                /[0-9]+$/.test(value) ||
+                "The User Name must end with numbers without spaces.",
+            isContainsCharacters: (value) =>
+                /[a-zA-Z]+/.test(value) ||
+                "The User Name must contain characters",
+        },
+    },
+    COUNTRY_VALIDATION: {
+        required: "Country is required",
+        minLength: {
+            value: 3,
+            message: "The Country must be at least 3 characters.",
+        },
+    },
+    PHONE_VALIDATION: {
+        required: "Phone is required",
+        minLength: {
+            value: 5,
+            message: "The Phone must be at least 5 characters.",
+        },
+    },
 };
