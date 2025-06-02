@@ -3,14 +3,13 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import { useState } from "react";
-import { createContext } from "react";
+import { AuthContext } from "./context";
 import { toast } from "react-toastify";
-
-export let AuthContext = createContext(null);
 
 export default function AuthContextProvider({ children }) {
     const [loginData, setLoginData] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const decodeToken = useCallback(() => {
         const userToken = localStorage.getItem("token");
@@ -19,19 +18,8 @@ export default function AuthContextProvider({ children }) {
         return decodedData;
     }, []);
 
-    const saveLoginData = useCallback(() => {
-        try {
-            const decodedData = decodeToken();
-            setLoginData(decodedData);
-            getCurrentUserData();
-        } catch (error) {
-            console.error("Failed to decode token:", error);
-            localStorage.removeItem("token");
-            setLoginData(null);
-        }
-    }, [decodeToken]);
-
-    const getCurrentUserData = async () => {
+    const saveCurrentUserData = useCallback(async () => {
+        setIsLoading(true);
         try {
             let response = await toast.promise(
                 axiosInstance.get(`${USERS_URL.GET_CURRENT_USER}`),
@@ -42,11 +30,34 @@ export default function AuthContextProvider({ children }) {
                 }
             );
             setCurrentUser(response.data);
-            console.log("response", response);
+
+            console.log("currentuser response", response);
         } catch (error) {
-            console.log(error);
+            console.error("Failed to fetch user data:", error);
+            toast.error("Failed to load user data");
+        } finally {
+            setIsLoading(false);
         }
-    };
+    }, []);
+
+    const saveLoginData = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const decodedData = decodeToken();
+            setLoginData(decodedData);
+
+            if (decodedData) {
+                await saveCurrentUserData();
+            }
+        } catch (error) {
+            console.error("Failed to decode token:", error);
+            localStorage.removeItem("token");
+            setLoginData(null);
+            setCurrentUser(null);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [decodeToken, saveCurrentUserData]);
 
     useEffect(() => {
         saveLoginData();
@@ -59,6 +70,7 @@ export default function AuthContextProvider({ children }) {
                 saveLoginData,
                 setLoginData,
                 currentUser,
+                isLoading,
             }}
         >
             {children}

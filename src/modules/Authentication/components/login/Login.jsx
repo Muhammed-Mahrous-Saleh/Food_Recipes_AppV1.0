@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { validation } from "@/modules/Shared/utils/validation";
 import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import { AuthContext } from "@/context/context";
 
 const Login = () => {
     let { saveLoginData } = useContext(AuthContext);
@@ -26,7 +26,7 @@ const Login = () => {
         try {
             let response = await axiosInstance.post(USERS_URL.LOGIN, data);
             localStorage.setItem("token", response.data.token);
-            await saveLoginData();
+            saveLoginData();
             toast.success("logedin Successfully");
             navigate("/dashboard");
         } catch (error) {

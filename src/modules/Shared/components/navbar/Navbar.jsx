@@ -2,11 +2,12 @@ import React from "react";
 import profile from "@/assets/images/profile.png";
 import Alert from "@/assets/icons/alert.svg?react";
 import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { IMAGE_PATH } from "../../utils/urls";
+import { AuthContext } from "@/context/context";
 
 const Navbar = () => {
     const { currentUser } = useContext(AuthContext);
+
     return (
         <div className="navbar-container p-3">
             <nav className="navbar navbar-expand-lg navbar-light bg-light p-3 rounded-4">
@@ -15,7 +16,7 @@ const Navbar = () => {
                         <div className="user-img-container d-flex">
                             <img
                                 src={
-                                    currentUser.imagePath
+                                    currentUser?.imagePath
                                         ? IMAGE_PATH(currentUser?.imagePath)
                                         : profile
                                 }
