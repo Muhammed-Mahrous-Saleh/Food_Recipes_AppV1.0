@@ -11,10 +11,12 @@ import Logout from "../../../../assets/icons/logout.svg?react";
 import logo from "@/assets/images/logo.png";
 import { useState } from "react";
 import ConfirmModal from "../confirmation-modal/ConfirmModal";
+import ChangePasswordModal from "@/modules/Authentication/components/change-pass-modal/ChangePasswordModal";
 
 const Sidebar = ({ setLoginData }) => {
     const [collapsed, setCollapsed] = useState(false);
     const [show, setShow] = useState(false);
+    const [showChange, setShowChange] = useState(false);
     const navigate = useNavigate();
     /**
  * 
@@ -29,6 +31,9 @@ const Sidebar = ({ setLoginData }) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleCloseChange = () => setShowChange(false);
+    const handleShowChange = () => setShowChange(true);
 
     const toggleSidebar = () => setCollapsed(!collapsed);
     const handleLogout = () => {
@@ -84,6 +89,7 @@ const Sidebar = ({ setLoginData }) => {
                 </MenuItem>
                 <MenuItem
                     icon={<Unlock className="sidebar-icon" />}
+                    onClick={handleShowChange}
                     className="pro-menu-item"
                 >
                     Change Password
@@ -103,6 +109,10 @@ const Sidebar = ({ setLoginData }) => {
                 title={"Are you sure to logout?"}
                 onConfirm={handleLogout}
                 confirmTitle={"Logout"}
+            />
+            <ChangePasswordModal
+                show={showChange}
+                handleClose={handleCloseChange}
             />
         </SideBar>
     );

@@ -14,6 +14,7 @@ const AuthInput = ({
     registeredRules,
     value,
     disabled,
+    field,
 }) => {
     const [isHidden, setIsHidden] = useState(type === "password");
     return (

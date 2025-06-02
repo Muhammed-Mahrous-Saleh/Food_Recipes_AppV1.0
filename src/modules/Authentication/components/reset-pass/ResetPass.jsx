@@ -10,6 +10,7 @@ import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
+import { validation } from "@/modules/Shared/utils/validation";
 
 const ResetPass = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -80,28 +81,9 @@ const ResetPass = () => {
                         register={register}
                         errors={errors}
                         registeredName="password"
-                        registeredRules={{
-                            required: "New Password is required",
-                            minLength: {
-                                value: 6,
-                                message:
-                                    "Password must be at least 6 characters",
-                            },
-                            validate: {
-                                hasUppercase: (value) =>
-                                    /[A-Z]/.test(value) ||
-                                    "Password must contain at least one uppercase letter",
-                                hasLowercase: (value) =>
-                                    /[a-z]/.test(value) ||
-                                    "Password must contain at least one lowercase letter",
-                                hasNumber: (value) =>
-                                    /\d/.test(value) ||
-                                    "Password must contain at least one number",
-                                hasSpecialChar: (value) =>
-                                    /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
-                                    "Password must contain at least one special character",
-                            },
-                        }}
+                        registeredRules={validation.PASSWORD_VALIDATION(
+                            "New Password is required"
+                        )}
                     />
                     <AuthInput
                         type={"password"}
@@ -111,12 +93,9 @@ const ResetPass = () => {
                         register={register}
                         errors={errors}
                         registeredName="confirmPassword"
-                        registeredRules={{
-                            required: "Confirm Password is required",
-                            validate: (value) =>
-                                value === newPassword ||
-                                "Passwords do not match",
-                        }}
+                        registeredRules={validation.CONFIRM_PASSWORD_VALIDATION(
+                            newPassword
+                        )}
                     />
                 </div>
                 <AuthBtn title={"Reset Password"} isLoading={isLoading} />
