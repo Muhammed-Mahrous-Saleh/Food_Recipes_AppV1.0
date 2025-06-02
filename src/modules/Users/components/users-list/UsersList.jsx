@@ -114,7 +114,7 @@ const UsersList = () => {
             setUsersList(usersList.filter((user) => user.id !== id));
 
             let response = await toast.promise(
-                axiosInstance.delete(`${USERS_URL.DELETE_CATEGORY(id)}`, {
+                axiosInstance.delete(`${USERS_URL.DELETE_USER(id)}`, {
                     params: { id },
                 }),
                 {
@@ -307,7 +307,7 @@ const UsersList = () => {
                                                                         className="d-flex align-items-center justify-content-start gap-2"
                                                                         onClick={() => {
                                                                             handleShowConfirmModal(
-                                                                                user
+                                                                                user.userName
                                                                             );
                                                                         }}
                                                                     >
