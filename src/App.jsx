@@ -19,25 +19,21 @@ import RecipesList from "./modules/Recipes/components/recipes-list/RecipesList";
 import FavList from "./modules/Favorites/components/fav-list/FavList";
 import CategoryData from "./modules/Categories/components/category-data/CategoryData";
 import { ToastContainer } from "react-toastify";
-import { useState, useEffect } from "react";
 import ProtectedRoute from "./modules/Shared/components/protected-route/ProtectedRoute";
 import Loading from "./modules/Shared/components/loading/Loading";
 import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./context/context";
+import { useEffect } from "react";
 
 function App() {
-    const [isLoading, setIsLoading] = useState(true);
-    const { loginData } = useContext(AuthContext);
+    const { isLoading, currentUser, loginData } = useContext(AuthContext);
 
     useEffect(() => {
-        if (loginData) {
-            setIsLoading(false);
-        } else {
-            setIsLoading(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
+        console.log("current user - from app", currentUser);
+    }, [currentUser]);
+    useEffect(() => {
+        console.log("loginData - from app", loginData);
+    }, [loginData]);
     if (isLoading) {
         return <Loading />;
     }
@@ -77,7 +73,7 @@ function App() {
                 { path: "recipe-data", element: <RecipeData /> },
                 { path: "categories", element: <CategoriesList /> },
                 { path: "category-data", element: <CategoryData /> },
-                { path: "favs", element: <FavList /> },
+                { path: "favorites", element: <FavList /> },
             ],
         },
     ]);

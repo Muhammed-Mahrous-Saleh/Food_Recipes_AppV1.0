@@ -18,11 +18,9 @@
 -   [] T-2.7 — Register
 -   [✔️] T-2.8 — Login Data context
 -   [✔️] T-2.9 — deal with fetching current user data
--   [] T-2.10 — Sidebar Authoriation between system user and super admin
+-   [✔️] T-2.10 — Sidebar Authoriation between system user and super admin
 
 ## T-3: Dashboard
-
-<!-- todo -->
 
 -   [✔️] T-3.1 — Header Component
 -   [✔️] T-3.2 — Sidebar
@@ -65,3 +63,5 @@
 -   [✅] I-4.2.1 — when click on add new category twice, second time will has the last value of add category.
 -   [✅] I-4.2.2 — can't find url after updating urls based on axios instance
 -   [✅] I-3.3.1 — no user profile image if user didn't upload one
+-   [✅] I-2.10.1 — unAuthorized when calling currentUser from api: solution => use <interceptors> line 12 in urls.js, to make axiosInstance dynamic with token changes from localStorage.
+-
