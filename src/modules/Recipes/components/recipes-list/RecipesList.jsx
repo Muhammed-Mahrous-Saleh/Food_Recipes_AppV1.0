@@ -1,6 +1,6 @@
 import Header from "@/modules/Shared/components/header/Header";
 import SectionTitle from "@/modules/Shared/components/section-title/SectionTitle";
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { format } from "date-fns";
@@ -24,6 +24,7 @@ import {
 } from "@/modules/Shared/utils/urls";
 import { useNavigate } from "react-router-dom";
 import RecipeActionModal from "../recipe-aciton-modal/RecipeActionModal";
+import { AuthContext, FavouriteContext } from "@/context/context";
 
 const RecipesList = () => {
     const [recipesList, setRecipesList] = useState(null);
@@ -40,6 +41,9 @@ const RecipesList = () => {
     const [search, setSearch] = useState("");
     const [tagFilter, setTagFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
+    const { currentUser } = useContext(AuthContext);
+    const { addToFavourites, favouriteList, removeFromFavourites, favLoading } =
+        useContext(FavouriteContext);
     const navigate = useNavigate();
     const pages = [];
 
@@ -370,7 +374,12 @@ const RecipesList = () => {
                                                         </a>
                                                         <div className="actions-container">
                                                             <ul className="dropdown-menu dropdown-menu-end actions-menu">
-                                                                <li className="action">
+                                                                <li
+                                                                    className="action"
+                                                                    key={
+                                                                        "action_1"
+                                                                    }
+                                                                >
                                                                     <div
                                                                         className="d-flex align-items-center justify-content-start gap-2"
                                                                         onClick={async () => {
@@ -391,35 +400,119 @@ const RecipesList = () => {
                                                                         View
                                                                     </div>
                                                                 </li>
-                                                                <li className="action">
-                                                                    <div
-                                                                        className="d-flex align-items-center justify-content-start gap-2"
-                                                                        onClick={() => {
-                                                                            setAction(
-                                                                                "Edit"
-                                                                            );
-                                                                            handleNavigateToRecipe(
-                                                                                recipe
-                                                                            );
-                                                                        }}
+                                                                {currentUser
+                                                                    .group
+                                                                    .id ===
+                                                                    2 && (
+                                                                    <li
+                                                                        className="action"
+                                                                        key={
+                                                                            "action_2"
+                                                                        }
                                                                     >
-                                                                        <EditIcon className="action-icon" />
-                                                                        Edit
-                                                                    </div>
-                                                                </li>
-                                                                <li className="action">
-                                                                    <div
-                                                                        className="d-flex align-items-center justify-content-start gap-2"
-                                                                        onClick={() => {
-                                                                            handleShowConfirmModal(
-                                                                                recipe
-                                                                            );
-                                                                        }}
+                                                                        <div
+                                                                            className="d-flex align-items-center justify-content-start gap-2"
+                                                                            onClick={() => {
+                                                                                favouriteList
+                                                                                    .map(
+                                                                                        (
+                                                                                            f
+                                                                                        ) =>
+                                                                                            f
+                                                                                                .recipe
+                                                                                                .id
+                                                                                    )
+                                                                                    .includes(
+                                                                                        recipe.id
+                                                                                    )
+                                                                                    ? removeFromFavourites(
+                                                                                          recipe
+                                                                                      )
+                                                                                    : addToFavourites(
+                                                                                          recipe
+                                                                                      );
+                                                                            }}
+                                                                        >
+                                                                            {favouriteList
+                                                                                .map(
+                                                                                    (
+                                                                                        f
+                                                                                    ) =>
+                                                                                        f
+                                                                                            .recipe
+                                                                                            .id
+                                                                                )
+                                                                                .includes(
+                                                                                    recipe.id
+                                                                                ) ? (
+                                                                                <>
+                                                                                    <i className="fa-solid fa-heart action-icon"></i>{" "}
+                                                                                    <span>
+                                                                                        remove
+                                                                                        item
+                                                                                    </span>
+                                                                                </>
+                                                                            ) : (
+                                                                                <>
+                                                                                    <i className="fa-regular fa-heart action-icon"></i>
+                                                                                    <span>
+                                                                                        add
+                                                                                        item
+                                                                                    </span>
+                                                                                </>
+                                                                            )}
+                                                                        </div>
+                                                                    </li>
+                                                                )}
+                                                                {currentUser
+                                                                    .group
+                                                                    .id ===
+                                                                    1 && (
+                                                                    <li
+                                                                        className="action"
+                                                                        key={
+                                                                            "action_3"
+                                                                        }
                                                                     >
-                                                                        <DeleteIcon className="action-icon" />
-                                                                        Delete
-                                                                    </div>
-                                                                </li>
+                                                                        <div
+                                                                            className="d-flex align-items-center justify-content-start gap-2"
+                                                                            onClick={() => {
+                                                                                setAction(
+                                                                                    "Edit"
+                                                                                );
+                                                                                handleNavigateToRecipe(
+                                                                                    recipe
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            <EditIcon className="action-icon" />
+                                                                            Edit
+                                                                        </div>
+                                                                    </li>
+                                                                )}
+                                                                {currentUser
+                                                                    .group
+                                                                    .id ===
+                                                                    1 && (
+                                                                    <li
+                                                                        className="action"
+                                                                        key={
+                                                                            "action_4"
+                                                                        }
+                                                                    >
+                                                                        <div
+                                                                            className="d-flex align-items-center justify-content-start gap-2"
+                                                                            onClick={() => {
+                                                                                handleShowConfirmModal(
+                                                                                    recipe
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            <DeleteIcon className="action-icon" />
+                                                                            Delete
+                                                                        </div>
+                                                                    </li>
+                                                                )}
                                                             </ul>
                                                         </div>
                                                     </div>

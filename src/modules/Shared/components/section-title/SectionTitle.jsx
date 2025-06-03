@@ -3,6 +3,8 @@ import Search from "@/assets/icons/search.svg?react";
 import AuthInput from "../authInput/AuthInput";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "@/context/context";
+import { useContext } from "react";
 
 const SectionTitle = ({
     title,
@@ -32,6 +34,7 @@ const SectionTitle = ({
         { id: "1", name: "SuperAdmin" },
         { id: "2", name: "SystemUser" },
     ]);
+    const { currentUser } = useContext(AuthContext);
     return (
         <>
             <div className="title d-flex justify-content-between px-4 py-2 align-items-center">
@@ -39,9 +42,11 @@ const SectionTitle = ({
                     <h5 className="mb-0">{title}</h5>
                     <p className="mb-0">{subTitle}</p>
                 </div>
-                <a className="btn title-action-btn" onClick={action}>
-                    {actionTitle}
-                </a>
+                {currentUser.group.id === 1 && (
+                    <a className="btn title-action-btn" onClick={action}>
+                        {actionTitle}
+                    </a>
+                )}
             </div>
             <div className="search_input d-flex gap-1">
                 <div className="input-group bg-input flex-grow-1">

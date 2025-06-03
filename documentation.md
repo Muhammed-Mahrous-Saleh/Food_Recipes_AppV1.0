@@ -7,8 +7,6 @@
 
 ## T-2: Authentication
 
-<!-- todo -->
-
 -   [✔️] T-2.1 — Login
 -   [✔️] T-2.2 — Forgot Password
 -   [✔️] T-2.3 — Reset Password
@@ -45,6 +43,7 @@
 -   [✔️] T-5.4 — Delete Recipe
 -   [✔️] T-5.5 — Filter Recipes based on tags
 -   [✔️] T-5.6 — Filter Recipes based on categories
+-   [✔️] T-5.7 — Recipe Actions Authorization between systemuser and superadmin.
 
 ## T-6: Users Module
 
@@ -55,6 +54,14 @@
 -   [✔️] T-6.5 — Handle User View Modal
 -   [✔️] T-6.6 — Customize actions menu for every user in usersList
 
+## T-7: Favourites Module
+
+-   [✔️] T-7.1 — List Favourites
+-   [✔️] T-7.2 — Add Favourite
+-   [✔️] T-7.3 — Delete Favourite
+-   [] T-7.4 — Favourite Item component
+-   [] T-7.5 — Show in Favourite page
+
 # 🐛 Issues
 
 -   [✅] I-5.1.1 — Not all recipes are fetched (possibly due to pagination bug)
@@ -64,4 +71,4 @@
 -   [✅] I-4.2.2 — can't find url after updating urls based on axios instance
 -   [✅] I-3.3.1 — no user profile image if user didn't upload one
 -   [✅] I-2.10.1 — unAuthorized when calling currentUser from api: solution => use <interceptors> line 12 in urls.js, to make axiosInstance dynamic with token changes from localStorage.
--
+-   [✅] I-2.10.2 — user can delete and edit recipes.

@@ -49,3 +49,9 @@ export const CATEGORIES_URL = {
 export const TAGS_URL = {
     GET_TAGS: `/tag/`,
 };
+
+export const FAVS_URL = {
+    GET_FAVS: `/userRecipe/`,
+    ADD_FAV: `/userRecipe/`,
+    DELETE_FAV: (id) => `/userRecipe/${id}`,
+};

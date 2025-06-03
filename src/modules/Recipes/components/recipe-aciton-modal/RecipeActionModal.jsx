@@ -1,15 +1,18 @@
 import React from "react";
-import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import ModalImg from "@/assets/images/modal_img.png";
-import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
 import { IMAGE_PATH } from "@/modules/Shared/utils/urls";
+import { useContext } from "react";
+import { AuthContext, FavouriteContext } from "@/context/context";
 
 const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
     useEffect(() => {
         console.log("selectedItem", selectedItem);
     }, [selectedItem]);
+
+    const { currentUser } = useContext(AuthContext);
+    const { addToFavourites, favouriteList, removeFromFavourites, favLoading } =
+        useContext(FavouriteContext);
 
     const onClose = () => {
         handleClose();
@@ -35,6 +38,7 @@ const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
                                 />
                             </div>
                             {selectedItem &&
+                                currentUser.group.id === 1 &&
                                 Object.keys(selectedItem).map((key) => (
                                     <p key={key}>
                                         <strong>{key}</strong>: &nbsp;
@@ -75,9 +79,81 @@ const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
                                                       </span>
                                                   )
                                               )
+                                            : key === "price"
+                                            ? selectedItem[key] + " EGP"
                                             : selectedItem[key]}
                                     </p>
                                 ))}
+                            {selectedItem &&
+                                currentUser.group.id === 2 &&
+                                [
+                                    "name",
+                                    "description",
+                                    // "price",
+                                    // "category",
+                                    // "tag",
+                                ].map((key) => (
+                                    <div className="d-flex">
+                                        <strong>{key}</strong>: &nbsp;
+                                        {selectedItem[key]}
+                                    </div>
+                                ))}
+                            {selectedItem && currentUser.group.id === 2 && (
+                                <>
+                                    <div className="d-flex">
+                                        <strong>Price</strong>: &nbsp;
+                                        {selectedItem["price"]} EGP
+                                    </div>
+                                    <div className="d-flex">
+                                        <strong>Category</strong>: &nbsp;
+                                        {selectedItem["category"][0].name}
+                                    </div>
+                                    <div className="d-flex">
+                                        <strong>Tag</strong>: &nbsp;
+                                        {selectedItem["tag"].name}
+                                    </div>
+                                </>
+                            )}
+                            {selectedItem && currentUser.group.id === 2 && (
+                                <div className="d-flex justify-content-end align-self-end">
+                                    <Button
+                                        disabled={favLoading}
+                                        className={"btn btn-success"}
+                                        onClick={() => {
+                                            favouriteList.includes(selectedItem)
+                                                ? removeFromFavourites(
+                                                      selectedItem
+                                                  )
+                                                : addToFavourites(selectedItem);
+                                        }}
+                                    >
+                                        {(favLoading && (
+                                            <div
+                                                className="spinner-grow spinner-grow-sm text-light"
+                                                role="status"
+                                                key={selectedItem.id}
+                                            >
+                                                <span className="visually-hidden">
+                                                    Loading...
+                                                </span>
+                                            </div>
+                                        )) ||
+                                            (favouriteList
+                                                .map((f) => f.id)
+                                                .includes(selectedItem.id) ? (
+                                                <i
+                                                    className="fa fa-heart"
+                                                    key={selectedItem.id}
+                                                ></i>
+                                            ) : (
+                                                <i
+                                                    className="fa-regular fa-heart"
+                                                    key={selectedItem.id}
+                                                ></i>
+                                            ))}
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Modal.Body>
