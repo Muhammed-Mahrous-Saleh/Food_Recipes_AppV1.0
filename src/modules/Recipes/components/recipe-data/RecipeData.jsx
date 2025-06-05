@@ -258,6 +258,11 @@ const RecipeData = () => {
                                                 valueAsNumber:
                                                     "Price is required",
                                                 required: "Price is required",
+                                                min: {
+                                                    value: 0,
+                                                    message:
+                                                        "Price can't be negative",
+                                                },
                                             })}
                                         />
                                         {
