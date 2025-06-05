@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import EyeIcon from "../../../../assets/icons/eye.svg?react";
 import EyeSlashIcon from "../../../../assets/icons/eye-slash.svg?react";
-import { FormContext } from "@/context/FormContext";
-import { useContext } from "react";
 
 const AuthInput = ({
     icon,
