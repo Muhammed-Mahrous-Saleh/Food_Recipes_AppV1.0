@@ -18,7 +18,9 @@ import { AuthContext } from "@/context/context";
 
 const Sidebar = () => {
     const { setLoginData, currentUser } = useContext(AuthContext);
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(
+        localStorage.getItem("collapsed")
+    );
     const [show, setShow] = useState(false);
     const [showChange, setShowChange] = useState(false);
     const navigate = useNavigate();
@@ -39,7 +41,10 @@ const Sidebar = () => {
     const handleCloseChange = () => setShowChange(false);
     const handleShowChange = () => setShowChange(true);
 
-    const toggleSidebar = () => setCollapsed(!collapsed);
+    const toggleSidebar = () => {
+        localStorage.setItem("collapsed", !collapsed);
+        setCollapsed(!collapsed);
+    };
     const handleLogout = () => {
         localStorage.removeItem("token");
         setLoginData(null);
