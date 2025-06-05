@@ -4,6 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import ModalImg from "@/assets/images/modal_img.png";
 import { useForm, Controller } from "react-hook-form";
 import { useEffect } from "react";
+import { format } from "date-fns";
 
 const ActionModal = ({
     action,
@@ -31,6 +32,8 @@ const ActionModal = ({
             setCatName("");
         }
     }, [selectedItem]);
+
+    let dateFormat = "dd/MM/yyyy HH:mm a";
 
     const onSubmit = async (data) => {
         setLoading(true);
@@ -122,6 +125,16 @@ const ActionModal = ({
                                             {key === "recipe"
                                                 ? selectedItem[key].map(
                                                       (item) => item.name + ","
+                                                  )
+                                                : [
+                                                      "modificationDate",
+                                                      "creationDate",
+                                                  ].includes(key)
+                                                ? format(
+                                                      new Date(
+                                                          selectedItem[key]
+                                                      ),
+                                                      dateFormat
                                                   )
                                                 : selectedItem[key]}
                                         </p>
