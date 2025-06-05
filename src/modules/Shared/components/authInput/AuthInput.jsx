@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import EyeIcon from "../../../../assets/icons/eye.svg?react";
 import EyeSlashIcon from "../../../../assets/icons/eye-slash.svg?react";
+import { FormContext } from "@/context/FormContext";
+import { useContext } from "react";
 
 const AuthInput = ({
     icon,
@@ -14,7 +16,9 @@ const AuthInput = ({
     registeredRules,
     value,
     disabled,
-    field,
+    triggerOnChange,
+    trigger,
+    isSubmitted,
 }) => {
     const [isHidden, setIsHidden] = useState(type === "password");
     return (
@@ -38,7 +42,18 @@ const AuthInput = ({
                     id={id}
                     value={disabled && value}
                     disabled={disabled || false}
-                    {...register(registeredName, registeredRules)}
+                    {...register(registeredName, {
+                        ...registeredRules,
+
+                        onChange: (e) => {
+                            if (registeredRules?.onChange) {
+                                registeredRules.onChange(e);
+                            }
+
+                            if (isSubmitted && triggerOnChange)
+                                trigger(triggerOnChange);
+                        },
+                    })}
                 />
                 {type === "password" && (
                     <span

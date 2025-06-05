@@ -12,15 +12,15 @@ import { validation } from "@/modules/Shared/utils/validation";
 
 const ChangePasswordModal = ({ show, handleClose }) => {
     let {
-        formState: { errors },
+        formState: { errors, isSubmitted },
         handleSubmit,
         register,
-        watch,
+        trigger,
         setValue,
+        getValues,
     } = useForm();
 
     const [loading, setLoading] = useState(false);
-    const newPassword = watch("newPassword");
 
     useEffect(() => {
         console.log("I have been rerendered");
@@ -94,9 +94,12 @@ const ChangePasswordModal = ({ show, handleClose }) => {
                                     register={register}
                                     errors={errors}
                                     registeredName="newPassword"
+                                    triggerOnChange="confirmNewPassword"
                                     registeredRules={validation.PASSWORD_VALIDATION(
                                         "New Password is required."
                                     )}
+                                    trigger={trigger}
+                                    isSubmitted={isSubmitted}
                                 />
                             </div>
                             <div className="input-container">
@@ -109,7 +112,8 @@ const ChangePasswordModal = ({ show, handleClose }) => {
                                     errors={errors}
                                     registeredName="confirmNewPassword"
                                     registeredRules={validation.CONFIRM_PASSWORD_VALIDATION(
-                                        newPassword
+                                        getValues,
+                                        "newPassword"
                                     )}
                                 />
                             </div>

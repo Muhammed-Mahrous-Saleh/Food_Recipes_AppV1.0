@@ -30,11 +30,11 @@ export const validation = {
             },
         };
     },
-    CONFIRM_PASSWORD_VALIDATION: (newPassword) => {
+    CONFIRM_PASSWORD_VALIDATION: (getValues, newPassword) => {
         return {
             required: "Confirm Password is required",
             validate: (value) =>
-                value === newPassword || "Passwords do not match",
+                value === getValues(newPassword) || "Passwords do not match",
         };
     },
 

@@ -16,13 +16,13 @@ import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 const Register = () => {
     let {
         register,
-        formState: { errors },
+        formState: { errors, isSubmitted },
         handleSubmit,
         watch,
-        setValue,
+        getValues,
+        trigger,
     } = useForm();
     const [isLoading, setIsLoading] = useState(false);
-    const password = watch("password");
     const profileImage = watch("profileImage");
     const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ const Register = () => {
             const registerData = appendToFormData(data);
             console.log("data", data);
             console.log("registerData", registerData);
-            let response = await toast.promise(
+            await toast.promise(
                 axiosInstance.post(USERS_URL.REGISTER, registerData),
                 {
                     pending: "Registering ...",
@@ -103,7 +103,7 @@ const Register = () => {
                             type={"text"}
                             placeholder={"Country"}
                             icon={<Country className="icon" />}
-                            id={"2"}
+                            id={"3"}
                             register={register}
                             errors={errors}
                             registeredName="country"
@@ -113,13 +113,16 @@ const Register = () => {
                             type={"password"}
                             placeholder={"Password"}
                             icon={<Lock className="icon" />}
-                            id={"3"}
+                            id={"5"}
                             register={register}
                             errors={errors}
                             registeredName="password"
                             registeredRules={{
                                 required: "Password is required",
                             }}
+                            triggerOnChange={"confirmPassword"}
+                            trigger={trigger}
+                            isSubmitted={isSubmitted}
                         />
                     </div>
                     <div className="d-flex flex-column">
@@ -127,7 +130,7 @@ const Register = () => {
                             type={"email"}
                             placeholder={"Email"}
                             icon={<Envelope className="icon" />}
-                            id={"4"}
+                            id={"2"}
                             register={register}
                             errors={errors}
                             registeredName="email"
@@ -137,7 +140,7 @@ const Register = () => {
                             type={"text"}
                             placeholder={"Phone Number"}
                             icon={<Phone className="icon" />}
-                            id={"5"}
+                            id={"4"}
                             register={register}
                             errors={errors}
                             registeredName="phoneNumber"
@@ -153,7 +156,8 @@ const Register = () => {
                             errors={errors}
                             registeredName="confirmPassword"
                             registeredRules={validation.CONFIRM_PASSWORD_VALIDATION(
-                                password
+                                getValues,
+                                "password"
                             )}
                         />
                     </div>

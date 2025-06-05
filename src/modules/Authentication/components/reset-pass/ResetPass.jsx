@@ -8,7 +8,6 @@ import Envelope from "../../../../assets/icons/envelope.svg?react";
 import Lock from "../../../../assets/icons/lock.svg?react";
 import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 import { validation } from "@/modules/Shared/utils/validation";
 
@@ -18,17 +17,16 @@ const ResetPass = () => {
 
     let {
         register,
-        formState: { errors },
+        formState: { errors, isSubmitted },
         handleSubmit,
-        watch,
+        getValues,
+        trigger,
     } = useForm();
-
-    const newPassword = watch("password");
 
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            let response = await axiosInstance.post(USERS_URL.RESET_PASS, data);
+            await axiosInstance.post(USERS_URL.RESET_PASS, data);
             toast.success("Password has been updated successfully");
             navigate("/login");
         } catch (error) {
@@ -81,6 +79,9 @@ const ResetPass = () => {
                         register={register}
                         errors={errors}
                         registeredName="password"
+                        triggerOnChange="confirmPassword"
+                        trigger={trigger}
+                        isSubmitted={isSubmitted}
                         registeredRules={validation.PASSWORD_VALIDATION(
                             "New Password is required"
                         )}
@@ -94,7 +95,8 @@ const ResetPass = () => {
                         errors={errors}
                         registeredName="confirmPassword"
                         registeredRules={validation.CONFIRM_PASSWORD_VALIDATION(
-                            newPassword
+                            getValues,
+                            "password"
                         )}
                     />
                 </div>

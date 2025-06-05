@@ -73,3 +73,6 @@
 -   [✅] I-3.3.1 — no user profile image if user didn't upload one
 -   [✅] I-2.10.1 — unAuthorized when calling currentUser from api: solution => use `interceptors` line 12 in urls.js, to make axiosInstance dynamic with token changes from localStorage.
 -   [✅] I-2.10.2 — user can delete and edit recipes.
+-   [✅] I-2.4.1 — not-found page appear before getting currentUser data
+-   [✅] I-7.5.1 — seketon loader appear with items when remove item.
+-   [✅] I-2.3.1 — new password and confirm password validation in register, reset and change password.
