@@ -6,7 +6,6 @@ import Lock from "../../../../assets/icons/lock.svg?react";
 import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 
@@ -21,10 +20,7 @@ const ForgetPass = () => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {
-            let response = await axiosInstance.post(
-                USERS_URL.FORGET_PASS,
-                data
-            );
+            await axiosInstance.post(USERS_URL.FORGET_PASS, data);
 
             toast.success(
                 "Reset OTP sent Successfully, Please check your Email!"
