@@ -7,6 +7,7 @@ import React from "react";
 import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Skeleton from "react-loading-skeleton";
 
 const FavList = () => {
     const { favouriteList, addToFavourites, removeFromFavourites, favLoading } =
@@ -21,9 +22,30 @@ const FavList = () => {
                     "This is your favourite items list. You can add or remove items from here."
                 }
             />
-            <div className="favourites-cards d-flex gap-3 p-5 justify-content-center">
-                {favLoading && !favouriteList && <Loading />}
-                {favouriteList.length === 0 && <NoData title={"Favourites"} />}
+            <div className="favourites-cards d-flex gap-3 p-5 justify-content-center flex-wrap">
+                {favLoading &&
+                    !favouriteList &&
+                    [...Array(3)].map(() => (
+                        <Card
+                            style={{
+                                width: "18rem",
+                            }}
+                            className="shadow position-relative d-flex align-items-center"
+                        >
+                            <div
+                                className="w-90 d-flex flex-column gap-3"
+                                style={{
+                                    width: "80%",
+                                }}
+                            >
+                                <Skeleton height={200} />
+                                <Skeleton height={10} count={5} />
+                            </div>
+                        </Card>
+                    ))}
+                {!favLoading && favouriteList?.length === 0 && (
+                    <NoData title={"Favourites"} />
+                )}
                 {favouriteList?.map((item) => {
                     console.log(item);
                     return (

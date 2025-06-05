@@ -8,7 +8,7 @@ import { useCallback } from "react";
 import { useContext } from "react";
 
 const FavouriteContextProvider = ({ children }) => {
-    const [favouriteList, setFavouriteList] = useState([]);
+    const [favouriteList, setFavouriteList] = useState(null);
     const [favLoading, setFavLoading] = useState(false);
     const { currentUser } = useContext(AuthContext);
 
@@ -21,8 +21,8 @@ const FavouriteContextProvider = ({ children }) => {
                     pageSize: 10000,
                 }),
                 {
-                    pending: "Loading Favourites...",
-                    success: "Favourites loaded successfully",
+                    // pending: "Loading Favourites...",
+                    // success: "Favourites loaded successfully",
                     error: `Something went wrong in Favourites`,
                 }
             );
@@ -35,7 +35,7 @@ const FavouriteContextProvider = ({ children }) => {
         }
     }, []);
     const addToFavourites = async (item) => {
-        setFavLoading(true);
+        // setFavLoading(true);
         try {
             let response = await toast.promise(
                 axiosInstance.post(`${FAVS_URL.GET_FAVS}`, {
@@ -53,12 +53,12 @@ const FavouriteContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
         } finally {
-            setFavLoading(false);
+            // setFavLoading(false);
         }
     };
 
     const removeFromFavourites = async (item) => {
-        setFavLoading(true);
+        // setFavLoading(true);
         console.log(
             "to delete item",
             favouriteList.filter((f) => f.recipe.id === item.id)[0].id
@@ -88,7 +88,7 @@ const FavouriteContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
         } finally {
-            setFavLoading(false);
+            // setFavLoading(false);
         }
     };
 
