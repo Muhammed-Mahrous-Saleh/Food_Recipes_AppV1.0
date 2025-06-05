@@ -17,7 +17,7 @@
 -   [✔️] T-2.8 — Login Data context
 -   [✔️] T-2.9 — deal with fetching current user data
 -   [✔️] T-2.10 — Sidebar Authoriation between system user and super admin
--   [✔️] T-2.11 — Authoriation routing between system user and super admin
+-   [✔️] T-2.11 — add role-based access control (RBAC) based on the currentUser's group id
 
 ## T-3: Dashboard
 
@@ -60,8 +60,8 @@
 -   [✔️] T-7.1 — List Favourites
 -   [✔️] T-7.2 — Add Favourite
 -   [✔️] T-7.3 — Delete Favourite
--   [] T-7.4 — Favourite Item component
--   [] T-7.5 — Show in Favourite page
+-   [✔️] T-7.4 — Favourite Item component
+-   [✔️] T-7.5 — Show in Favourite page
 
 # 🐛 Issues
 
