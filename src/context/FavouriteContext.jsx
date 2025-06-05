@@ -1,14 +1,16 @@
 import React from "react";
-import { FavouriteContext } from "./context";
+import { AuthContext, FavouriteContext } from "./context";
 import { useState } from "react";
 import { axiosInstance, FAVS_URL } from "@/modules/Shared/utils/urls";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useCallback } from "react";
+import { useContext } from "react";
 
 const FavouriteContextProvider = ({ children }) => {
     const [favouriteList, setFavouriteList] = useState([]);
     const [favLoading, setFavLoading] = useState(false);
+    const { currentUser } = useContext(AuthContext);
 
     const getFavouriteList = useCallback(async () => {
         setFavLoading(true);
@@ -26,7 +28,6 @@ const FavouriteContextProvider = ({ children }) => {
             );
             setFavouriteList(response.data.data);
             console.log("list favourites", response);
-            console.log("favouriteList", favouriteList);
         } catch (error) {
             console.log(error);
         } finally {
@@ -92,8 +93,8 @@ const FavouriteContextProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        getFavouriteList();
-    }, [getFavouriteList]);
+        if (currentUser?.group.id === 2) getFavouriteList();
+    }, [getFavouriteList, currentUser]);
 
     return (
         <FavouriteContext.Provider

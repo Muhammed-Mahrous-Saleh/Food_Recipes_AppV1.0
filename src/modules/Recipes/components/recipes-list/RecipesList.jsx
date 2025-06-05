@@ -353,6 +353,7 @@ const RecipesList = () => {
                                                                     ? "recipe image"
                                                                     : "no image"
                                                             }
+                                                            className="object-fit-contain h-100 w-100"
                                                         />
                                                     </div>
                                                 </td>
