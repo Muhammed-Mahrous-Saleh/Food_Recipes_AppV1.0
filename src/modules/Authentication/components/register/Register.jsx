@@ -72,7 +72,7 @@ const Register = () => {
                     },
                 }
             );
-            navigate("/verify-account");
+            navigate("/verify-account", { state: { email: data.email } });
         } catch (error) {
             console.error(error);
         } finally {

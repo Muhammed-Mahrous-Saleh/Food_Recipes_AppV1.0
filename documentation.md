@@ -76,3 +76,4 @@
 -   [✅] I-2.4.1 — not-found page appear before getting currentUser data
 -   [✅] I-7.5.1 — seketon loader appear with items when remove item.
 -   [✅] I-2.3.1 — new password and confirm password validation in register, reset and change password.
+-   [✅] I-2.0.1 — avoid email rewrite in reset pass and verify account while redirected from register and forget password

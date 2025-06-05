@@ -10,9 +10,11 @@ import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
 import { toast } from "react-toastify";
 import { axiosInstance, USERS_URL } from "@/modules/Shared/utils/urls";
 import { validation } from "@/modules/Shared/utils/validation";
+import { useLocation } from "react-router-dom";
 
 const ResetPass = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const location = useLocation();
     const navigate = useNavigate();
 
     let {
@@ -20,8 +22,13 @@ const ResetPass = () => {
         formState: { errors, isSubmitted },
         handleSubmit,
         getValues,
+        setValue,
         trigger,
     } = useForm();
+
+    if (location.state?.email) {
+        setValue("email", location.state?.email);
+    }
 
     const onSubmit = async (data) => {
         setIsLoading(true);
@@ -50,8 +57,7 @@ const ResetPass = () => {
                         id={"1"}
                         register={register}
                         errors={errors}
-                        value={location.state?.email}
-                        // disabled={true}
+                        disabled={location.state?.email}
                         registeredName="email"
                         registeredRules={{
                             required: "Email is required",
