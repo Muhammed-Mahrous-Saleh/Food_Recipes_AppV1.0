@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import NotFound from "../not-found/NotFound";
+import Loading from "../loading/Loading";
 
 const ProtectedRoute = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
@@ -12,6 +13,10 @@ const ProtectedRoute = ({ children }) => {
         //     localStorage.removeItem("token");
         //     return <Navigate to="/login" replace />;
         // }
+
+        if (!currentUser) {
+            return <Loading />;
+        }
 
         const groupId = currentUser.group?.id;
         const path = location.pathname;
