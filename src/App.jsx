@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./modules/Shared/components/authlayout/AuthLayout";
 import Login from "./modules/Authentication/components/login/Login";
 import Register from "./modules/Authentication/components/register/Register";
@@ -31,7 +31,7 @@ function App() {
         return <Loading />;
     }
 
-    let routes = createBrowserRouter([
+    let routes = createHashRouter([
         {
             path: "",
             element: <AuthLayout />,
