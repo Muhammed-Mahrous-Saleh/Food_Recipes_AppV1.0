@@ -3,7 +3,6 @@ import SectionTitle from "@/modules/Shared/components/section-title/SectionTitle
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { format } from "date-fns";
 import ViewIcon from "@/assets/icons/view-icon.svg?react";
 import EditIcon from "@/assets/icons/edit-icon.svg?react";
 import DeleteIcon from "@/assets/icons/delete-icon.svg?react";
@@ -113,7 +112,7 @@ const UsersList = () => {
         try {
             setUsersList(usersList.filter((user) => user.id !== id));
 
-            let response = await toast.promise(
+            await toast.promise(
                 axiosInstance.delete(`${USERS_URL.DELETE_USER(id)}`, {
                     params: { id },
                 }),
@@ -307,7 +306,7 @@ const UsersList = () => {
                                                                         className="d-flex align-items-center justify-content-start gap-2"
                                                                         onClick={() => {
                                                                             handleShowConfirmModal(
-                                                                                user.userName
+                                                                                user
                                                                             );
                                                                         }}
                                                                     >
@@ -334,7 +333,7 @@ const UsersList = () => {
 
                     {usersList && usersList.length === 0 && <NoData />}
                     <ConfirmModal
-                        title={`Delete ${selectedUser?.name} User ?`}
+                        title={`Delete ${selectedUser?.userName} User ?`}
                         message="are you sure you want to delete this item ? if you are sure just click on delete it"
                         confirmTitle="Delete this item"
                         onConfirm={() => {
