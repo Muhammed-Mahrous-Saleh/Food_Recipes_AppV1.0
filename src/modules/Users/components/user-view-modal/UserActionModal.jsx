@@ -2,8 +2,11 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { useEffect } from "react";
 import { IMAGE_PATH } from "@/modules/Shared/utils/urls";
+import { format } from "date-fns";
 
 const UserActionModal = ({ action, show, handleClose, selectedItem }) => {
+    let dateFormat = "dd/MM/yyyy HH:mm a";
+
     useEffect(() => {
         console.log("selectedItem", selectedItem);
     }, [selectedItem]);
@@ -49,17 +52,48 @@ const UserActionModal = ({ action, show, handleClose, selectedItem }) => {
                                                       [subkey, value],
                                                       index,
                                                       arr
-                                                  ) => (
-                                                      <span key={subkey}>
-                                                          {subkey}: {value}
-                                                          {index !==
-                                                              arr.length - 1 &&
-                                                              ","}
-                                                          <br />
-                                                      </span>
-                                                  )
+                                                  ) =>
+                                                      ([
+                                                          "creationDate",
+                                                          "modificationDate",
+                                                      ].includes(subkey) && (
+                                                          <span key={subkey}>
+                                                              {subkey}:{" "}
+                                                              {format(
+                                                                  new Date(
+                                                                      value
+                                                                  ),
+                                                                  dateFormat
+                                                              )}
+                                                              {index !==
+                                                                  arr.length -
+                                                                      1 && ","}
+                                                              <br />
+                                                          </span>
+                                                      )) || (
+                                                          <span key={key}>
+                                                              {subkey}: {value}
+                                                              {index !==
+                                                                  arr.length -
+                                                                      1 && ","}
+                                                              <br />
+                                                          </span>
+                                                      )
                                               )
-                                            : selectedItem[key]}
+                                            : ([
+                                                  "creationDate",
+                                                  "modificationDate",
+                                              ].includes(key) && (
+                                                  <span key={key}>
+                                                      {format(
+                                                          new Date(
+                                                              selectedItem[key]
+                                                          ),
+                                                          dateFormat
+                                                      )}
+                                                  </span>
+                                              )) ||
+                                              selectedItem[key]}
                                     </p>
                                 ))}
                         </div>
