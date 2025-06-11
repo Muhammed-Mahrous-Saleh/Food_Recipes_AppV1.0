@@ -4,7 +4,7 @@ import AuthInput from "../../../Shared/components/authInput/AuthInput";
 import Envelope from "../../../../assets/icons/envelope.svg?react";
 import Lock from "../../../../assets/icons/lock.svg?react";
 import AuthBtn from "../../../Shared/components/authBtn/AuthBtn";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { validation } from "@/modules/Shared/utils/validation";
@@ -14,13 +14,19 @@ import { AuthContext } from "@/context/context";
 
 const Login = () => {
     let { saveLoginData } = useContext(AuthContext);
+    const location = useLocation();
     let {
         register,
         formState: { errors },
         handleSubmit,
+        setValue,
     } = useForm();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+
+    if (location.state?.email) {
+        setValue("email", location.state?.email);
+    }
     const onSubmit = async (data) => {
         setIsLoading(true);
         try {

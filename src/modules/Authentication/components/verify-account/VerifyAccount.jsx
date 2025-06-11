@@ -41,7 +41,7 @@ const VerifyAccount = () => {
                     },
                 }
             );
-            navigate("/login");
+            navigate("/login", { state: { email: data.email } });
         } catch (error) {
             console.error(error.response.data.message);
         } finally {
