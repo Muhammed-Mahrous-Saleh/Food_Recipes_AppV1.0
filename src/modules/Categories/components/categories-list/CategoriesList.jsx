@@ -93,9 +93,7 @@ const CategoriesList = () => {
             );
 
             let response = await toast.promise(
-                axiosInstance.delete(`${CATEGORIES_URL.DELETE_CATEGORY}`, {
-                    params: { id },
-                }),
+                axiosInstance.delete(`${CATEGORIES_URL.DELETE_CATEGORY(id)}`),
                 {
                     pending: "Deleting category...",
                     success: `Category "${deletedCategory.name}" deleted successfully`,
