@@ -35,7 +35,7 @@ const ResetPass = () => {
         try {
             await axiosInstance.post(USERS_URL.RESET_PASS, data);
             toast.success("Password has been updated successfully");
-            navigate("/login");
+            navigate("/login", { state: { email: data.email } });
         } catch (error) {
             toast.error(error.response.data.message);
         } finally {

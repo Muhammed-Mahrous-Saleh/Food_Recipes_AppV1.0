@@ -66,6 +66,7 @@ const Login = () => {
                         icon={<Envelope className="icon" />}
                         id={"1"}
                         register={register}
+                        disabled={location.state?.email}
                         errors={errors}
                         registeredName="email"
                         registeredRules={validation.EMAIL_VALIDATION}
