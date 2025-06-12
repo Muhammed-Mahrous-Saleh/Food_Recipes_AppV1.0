@@ -141,7 +141,7 @@ const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
                                             </div>
                                         )) ||
                                             (favouriteList
-                                                .map((f) => f.id)
+                                                .map((f) => f.recipe.id)
                                                 .includes(selectedItem.id) ? (
                                                 <i
                                                     className="fa fa-heart"
