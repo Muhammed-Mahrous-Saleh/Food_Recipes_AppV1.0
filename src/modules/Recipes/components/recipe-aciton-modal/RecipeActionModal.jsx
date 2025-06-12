@@ -120,7 +120,9 @@ const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
                                         disabled={favLoading}
                                         className={"btn btn-success"}
                                         onClick={() => {
-                                            favouriteList.includes(selectedItem)
+                                            favouriteList
+                                                .map((f) => f.recipe.id)
+                                                .includes(selectedItem.id)
                                                 ? removeFromFavourites(
                                                       selectedItem
                                                   )
