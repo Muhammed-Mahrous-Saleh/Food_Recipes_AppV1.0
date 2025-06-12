@@ -11,6 +11,12 @@ export default function AuthContextProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const logoutUser = useCallback(() => {
+        localStorage.removeItem("token");
+        setLoginData(null);
+        setCurrentUser(null);
+    }, []);
+
     const decodeToken = useCallback(() => {
         const userToken = localStorage.getItem("token");
         if (!userToken) return null;
@@ -71,6 +77,7 @@ export default function AuthContextProvider({ children }) {
                 setLoginData,
                 currentUser,
                 isLoading,
+                logoutUser,
             }}
         >
             {children}

@@ -17,7 +17,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/context";
 
 const Sidebar = () => {
-    const { setLoginData, currentUser } = useContext(AuthContext);
+    const { logoutUser, currentUser } = useContext(AuthContext);
     const [collapsed, setCollapsed] = useState(
         localStorage.getItem("collapsed")
     );
@@ -46,8 +46,7 @@ const Sidebar = () => {
         setCollapsed(!collapsed);
     };
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        setLoginData(null);
+        logoutUser();
         toast.success("Logout Successfully");
         navigate("/");
     };
