@@ -47,7 +47,6 @@ const RecipesList = () => {
     const navigate = useNavigate();
     const pages = [];
 
-    let dateFormat = "dd/MM/yyyy HH:mm a";
     let pageSize = 10;
 
     let handleShowConfirmModal = (recipe) => {

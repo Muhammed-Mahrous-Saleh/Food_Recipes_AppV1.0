@@ -1,14 +1,12 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useEffect } from "react";
 import { IMAGE_PATH } from "@/modules/Shared/utils/urls";
 import { useContext } from "react";
 import { AuthContext, FavouriteContext } from "@/context/context";
+import { format } from "date-fns";
 
 const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
-    useEffect(() => {
-        console.log("selectedItem", selectedItem);
-    }, [selectedItem]);
+    let dateFormat = "dd/MM/yyyy HH:mm a";
 
     const { currentUser } = useContext(AuthContext);
     const { addToFavourites, favouriteList, removeFromFavourites, favLoading } =
@@ -51,15 +49,33 @@ const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
                                                       [subkey, value],
                                                       index,
                                                       arr
-                                                  ) => (
-                                                      <span key={subkey}>
-                                                          {subkey}: {value}
-                                                          {index !==
-                                                              arr.length - 1 &&
-                                                              ","}
-                                                          <br />
-                                                      </span>
-                                                  )
+                                                  ) =>
+                                                      [
+                                                          "creationDate",
+                                                          "modificationDate",
+                                                      ].includes(subkey) ? (
+                                                          <span key={subkey}>
+                                                              {subkey}:{" "}
+                                                              {`${format(
+                                                                  new Date(
+                                                                      value
+                                                                  ),
+                                                                  dateFormat
+                                                              )}`}
+                                                              {index !==
+                                                                  arr.length -
+                                                                      1 && ","}
+                                                              <br />
+                                                          </span>
+                                                      ) : (
+                                                          <span key={subkey}>
+                                                              {subkey}: {value}
+                                                              {index !==
+                                                                  arr.length -
+                                                                      1 && ","}
+                                                              <br />
+                                                          </span>
+                                                      )
                                               )
                                             : key === "tag"
                                             ? Object.entries(
@@ -69,18 +85,44 @@ const RecipeActionModal = ({ action, show, handleClose, selectedItem }) => {
                                                       [subkey, value],
                                                       index,
                                                       arr
-                                                  ) => (
-                                                      <span key={subkey}>
-                                                          {subkey}: {value}
-                                                          {index !==
-                                                              arr.length - 1 &&
-                                                              ","}
-                                                          <br />
-                                                      </span>
-                                                  )
+                                                  ) =>
+                                                      [
+                                                          "creationDate",
+                                                          "modificationDate",
+                                                      ].includes(subkey) ? (
+                                                          <span key={subkey}>
+                                                              {subkey}:{" "}
+                                                              {`${format(
+                                                                  new Date(
+                                                                      value
+                                                                  ),
+                                                                  dateFormat
+                                                              )}`}
+                                                              {index !==
+                                                                  arr.length -
+                                                                      1 && ","}
+                                                              <br />
+                                                          </span>
+                                                      ) : (
+                                                          <span key={subkey}>
+                                                              {subkey}: {value}
+                                                              {index !==
+                                                                  arr.length -
+                                                                      1 && ","}
+                                                              <br />
+                                                          </span>
+                                                      )
                                               )
                                             : key === "price"
                                             ? selectedItem[key] + " EGP"
+                                            : [
+                                                  "creationDate",
+                                                  "modificationDate",
+                                              ].includes(key)
+                                            ? `${format(
+                                                  new Date(selectedItem[key]),
+                                                  dateFormat
+                                              )}`
                                             : selectedItem[key]}
                                     </p>
                                 ))}
